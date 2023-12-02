@@ -7,6 +7,10 @@
     font-weight: 400;
 }
 
+body {
+    padding: 30px;
+}
+
 html {
     background-color: var(--primary-color);
     color: var(--quartenary-color);

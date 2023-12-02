@@ -1,17 +1,15 @@
-import Image from 'next/image'
-import * as S from './style'
 import Link from 'next/link'
+
+import InterrogationIcon from '@/svgs/interrogation.svg'
+import GearIcon from '@/svgs/gear.svg'
+
+import * as S from './style'
 
 export default function Footer() {
   return (
         <S.Footer>
             <S.HelpButton>
-                <Image
-                    src='/interrogation.svg'
-                    alt='help-button'
-                    width={30}
-                    height={40}
-                />
+                <InterrogationIcon />
             </S.HelpButton>
             <S.Credits>
                 developed by <Link
@@ -22,12 +20,7 @@ export default function Footer() {
                 </Link>
             </S.Credits>
             <S.Configs>
-                <Image
-                    src='/gear.svg'
-                    alt='help-button'
-                    width={40}
-                    height={40}
-                />
+                <GearIcon />
             </S.Configs>
         </S.Footer>
   )
