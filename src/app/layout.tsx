@@ -1,12 +1,13 @@
-import type { Metadata } from 'next'
 import { Aldrich } from 'next/font/google'
 
-import '@/styles/global.css'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
-const aldrich = Aldrich({
-  subsets: ['latin'],
-  weight: ['400']
-})
+import type { Metadata } from 'next'
+import '@/styles/global.css'
+import { RootLayoutContainer } from './style'
+
+const aldrich = Aldrich({ weight: ['400'], subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Streak Count',
@@ -17,7 +18,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={aldrich.className}>
-        {children}
+        <RootLayoutContainer>
+          <Header />
+          {children}
+          <Footer />
+        </RootLayoutContainer>
       </body>
     </html>
   )

@@ -2,9 +2,9 @@
 
 import styled from 'styled-components'
 
-export const MainContainer = styled.main`
-    width: 100%;
-    height: calc(100vh - 60px);
+export const RootLayoutContainer = styled.main`
+    height: 100svh;
+    padding: 30px;
 
     display: flex;
     flex-direction: column;
