@@ -26,12 +26,12 @@ export const Title = styled.div`
         font-size: 40px;
         margin-bottom: 5px
     }
+`
 
-    p {
-        font-size: 12px;
-        color: var(--error-color);
-        white-space: break-spaces;
-    }
+export const TextError = styled.div<{ $err: boolean }>`
+    font-size: 12px;
+    color: var(--error-color);
+    visibility: ${props => props.$err ? 'visible' : 'hidden'};
 `
 
 export const Credentials = styled.div`
@@ -41,7 +41,7 @@ export const Credentials = styled.div`
     flex-direction: column;
     gap: 20px;
 
-    input[type="text"], input[type="password"] {
+    input[type=text], input[type=password] {
         width: 100%;
         padding: 15px 10px;
         border: 4px solid var(--tertiary-color);
@@ -61,27 +61,29 @@ export const Credentials = styled.div`
 
 export const PassSettings = styled.div`
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
     gap: 5px;
 
+    font-size: 12px;   
+
     label {
-        width: max-content;
+        width: fit-content;
 
         display: flex;
         align-items: center;
         gap: 5px;
 
         color: var(--tertiary-color);
-        font-size: 12px;
-        
-        &:hover, input:hover {
-            text-decoration: underline;
-            color: var(--tertiary-color);
-            cursor: pointer;
-        }
+    }
+    
+    label:hover, input[type=checkbox]:hover, a:hover {
+        text-decoration: underline;
+        color: var(--tertiary-color);
+        cursor: pointer;
     }
 
-    input[type="checkbox"] {
+    input[type=checkbox] {
         width: 12px;
         height: 12px;
         border: 2px solid var(--tertiary-color);
@@ -91,7 +93,7 @@ export const PassSettings = styled.div`
         transition: 100ms;
     }
 
-    input[type="checkbox"]:checked {
+    input[type=checkbox]:checked {
         position: relative;
         background-color: var(--tertiary-color);
 
@@ -118,7 +120,7 @@ export const AuthSubmit = styled.div`
     flex-direction: column;
     gap: 20px;
 
-    #auth-btn {
+    input, a {
         width: 100%;
         padding: 10px;
         border-radius: 20px;
