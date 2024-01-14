@@ -14,7 +14,11 @@ export const metadata: Metadata = {
   description: 'developed by <hiago emanuel>'
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en">
       <body className={aldrich.className}>

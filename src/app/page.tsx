@@ -16,21 +16,21 @@ export default function Home() {
     <S.Container>
       <S.SubHeader>
         <S.OrderList>
-          <div /><div /><div />
+          <div />
+          <div />
+          <div />
         </S.OrderList>
         <S.NewStreak />
       </S.SubHeader>
       <S.StreakList>
-        {
-          streakListTest.map(streak => (
-            <Link href={streak.title} key={streak.title}>
-              <S.Streak>
-                <h1>{streak.title}</h1>
-                <h1>{streak.counter}</h1>
-              </S.Streak>
-            </Link>
-          ))
-        }
+        {streakListTest.map((streak) => (
+          <Link href={streak.title} key={streak.title}>
+            <S.Streak>
+              <h1>{streak.title}</h1>
+              <h1>{streak.counter}</h1>
+            </S.Streak>
+          </Link>
+        ))}
       </S.StreakList>
     </S.Container>
   )

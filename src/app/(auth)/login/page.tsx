@@ -4,7 +4,7 @@ import * as S from '../style'
 export default function Login() {
   return (
     <S.Container>
-      <S.AuthForm action='/'>
+      <S.AuthForm action="/">
         <S.Title>
           <h1>Login</h1>
           <S.TextError $err={false}>
@@ -13,11 +13,11 @@ export default function Login() {
           </S.TextError>
         </S.Title>
         <S.Credentials>
-          <input type="text" id='email' placeholder="email" />
+          <input type="text" id="email" placeholder="email" />
           <S.PassSettings>
-            <input type="password" id='password' placeholder="password" />
-            <label htmlFor='forget-me'>
-              <input type="checkbox" id='forget-me' />
+            <input type="password" id="password" placeholder="password" />
+            <label htmlFor="forget-me">
+              <input type="checkbox" id="forget-me" />
               <span>dont&#39;t forget me</span>
             </label>
           </S.PassSettings>

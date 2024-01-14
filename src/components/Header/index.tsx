@@ -19,7 +19,9 @@ export default function Header() {
           <UserIcon />
           <h2>hiago emanuel</h2>
         </S.ViewUser>
-        <Link href='/'><HomeIcon /></Link>
+        <Link href="/">
+          <HomeIcon />
+        </Link>
       </S.Header>
     )
   }
