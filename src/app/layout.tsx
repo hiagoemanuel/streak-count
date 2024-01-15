@@ -14,19 +14,19 @@ export const metadata: Metadata = {
   description: 'developed by <hiago emanuel>'
 }
 
-export default function RootLayout({
-  children
-}: {
+export default function RootLayout(props: {
   children: React.ReactNode
+  modal: React.ReactNode
 }) {
   return (
     <html lang="en">
       <body className={aldrich.className}>
         <RootLayoutContainer>
           <Header />
-          {children}
+          {props.children}
           <Footer />
         </RootLayoutContainer>
+        {props.modal}
       </body>
     </html>
   )

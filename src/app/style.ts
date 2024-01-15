@@ -52,7 +52,6 @@ export const NewStreak = styled.div`
   align-items: center;
 
   position: relative;
-  cursor: pointer;
 
   &::before,
   &::after {

@@ -20,7 +20,9 @@ export default function Home() {
           <div />
           <div />
         </S.OrderList>
-        <S.NewStreak />
+        <Link href="/new-streak">
+          <S.NewStreak />
+        </Link>
       </S.SubHeader>
       <S.StreakList>
         {streakListTest.map((streak) => (

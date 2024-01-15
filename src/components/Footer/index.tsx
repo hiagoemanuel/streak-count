@@ -9,7 +9,9 @@ export default function Footer() {
   return (
     <S.Footer>
       <S.HelpButton>
-        <InterrogationIcon />
+        <Link href="/help">
+          <InterrogationIcon />
+        </Link>
       </S.HelpButton>
       <S.Credits>
         developed by{' '}

@@ -14,16 +14,18 @@ export const Footer = styled.footer`
 `
 
 export const HelpButton = styled.div`
-  min-width: 75px;
-  height: 75px;
-  border-radius: 50%;
+  a {
+    min-width: 75px;
+    height: 75px;
+    border-radius: 50%;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  cursor: pointer;
-  background-color: var(--secondary-color);
+    cursor: pointer;
+    background-color: var(--secondary-color);
+  }
 `
 
 export const Credits = styled.h3`

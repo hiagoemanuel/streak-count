@@ -17,7 +17,7 @@ a {
     color: var(--tertiary-color)
 }
 
-input {
+input, button {
     outline: none;
     border: none;
 }
