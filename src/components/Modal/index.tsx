@@ -1,20 +1,10 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import type ModalProps from '@/types/global'
 import * as S from './style'
 
-export default function Modal({
-  children,
-  title,
-  inputs
-}: {
-  children?: React.ReactNode
-  title: string
-  inputs: {
-    submit: { value: string; color?: 'red' | 'orange' }
-    refuse: { value: string; color?: 'red' | 'orange' }
-  }
-}) {
+export default function Modal({ children, title, inputs }: ModalProps) {
   const router = useRouter()
 
   return (
