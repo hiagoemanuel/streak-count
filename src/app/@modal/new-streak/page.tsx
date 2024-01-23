@@ -6,7 +6,7 @@ export default function NewStreak() {
       title="Create streak count"
       inputs={{
         submit: { value: 'Create' },
-        refuse: { value: "Don' Create" }
+        refuse: { value: "Don't Create" }
       }}
     >
       <input type="text" placeholder="name *" />
