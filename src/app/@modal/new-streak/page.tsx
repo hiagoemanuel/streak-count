@@ -5,8 +5,8 @@ export default function NewStreak() {
     <Modal
       title="Create streak count"
       inputs={{
-        submit: { value: 'Create' },
-        refuse: { value: "Don't Create" }
+        submit: { value: 'Create', color: 'orange' },
+        refuse: { value: "Don't Create", color: 'red' }
       }}
     >
       <input type="text" placeholder="name *" />

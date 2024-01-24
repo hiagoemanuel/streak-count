@@ -14,12 +14,12 @@ export default function Modal({ children, title, inputs }: ModalProps) {
         <S.Inputs>
           {children}
           <input
-            className={inputs.submit.color ?? 'orange'}
+            className={inputs.submit.color ?? 'red'}
             type="submit"
             value={inputs.submit.value}
           />
           <div
-            className={inputs.refuse.color ?? 'red'}
+            className={inputs.refuse.color ?? 'orange'}
             onClick={() => router.back()}
           >
             {inputs.refuse.value}

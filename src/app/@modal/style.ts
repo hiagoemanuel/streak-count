@@ -13,6 +13,7 @@ export const Container = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 10000;
 
   background-color: #00000015;
 `

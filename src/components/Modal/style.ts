@@ -13,6 +13,7 @@ export const Container = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 10000;
 
   background-color: #00000015;
 `
@@ -30,9 +31,6 @@ export const Form = styled.form`
 
   background-color: var(--secondary-color);
 
-  /* @media screen and (max-width: 640px) {
-    min-width: max-content;
-  } */
   @media screen and (max-width: 400px) {
     margin: 5px;
   }

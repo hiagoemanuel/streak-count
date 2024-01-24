@@ -44,7 +44,7 @@ export const Configs = styled.div<{ $isOpen: boolean }>`
   border-radius: 50%;
 
   overflow: hidden;
-  z-index: 10000;
+  z-index: 5000;
 
   background-color: var(--secondary-color);
 `
@@ -87,7 +87,7 @@ export const ConfigButton = styled.button<{ $isOpen: boolean }>`
 `
 
 export const Settings = styled.div<{ $isOpen: boolean }>`
-  padding: 15.5px;
+  padding: 17.5px;
   border-bottom: 30px solid var(--secondary-color);
   border-radius: 50px 50px 0 0;
 

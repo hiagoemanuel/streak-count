@@ -38,7 +38,7 @@ export default function Footer() {
           <GearIcon className={handlerConfigs ? 'is-open' : ''} />
         </S.ConfigButton>
         <S.Settings $isOpen={handlerConfigs}>
-          <Link href="/log-out">
+          <Link href="/logout">
             <LogoutIcon />
           </Link>
           <Link href="/delete-streak">
