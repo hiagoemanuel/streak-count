@@ -4,7 +4,7 @@ import React, { createContext, useState } from 'react'
 import { type IThemeContext, type IThemes } from './types'
 import { Variables } from '@/styles/variables'
 
-const themes: IThemes = {
+export const themes: IThemes = {
   dark: {
     primaryColor: '#1E1E1E',
     secondaryColor: '#151515',
@@ -14,7 +14,7 @@ const themes: IThemes = {
   },
   light: {
     primaryColor: '#F3F3F3',
-    secondaryColor: '#D7D7D7',
+    secondaryColor: '#C2C2C2',
     tertiaryColor: '#FC6011',
     textColor: '#1E1E1E',
     errorColor: '#FF4141'

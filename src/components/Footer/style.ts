@@ -38,13 +38,13 @@ export const Credits = styled.h3`
   }
 `
 
-export const Configs = styled.div<{ $isOpen: boolean }>`
+export const Configs = styled.div`
   min-width: 75px;
   height: 75px;
   border-radius: 50%;
 
-  overflow: hidden;
   z-index: 5000;
+  position: relative;
 
   background-color: var(--secondary-color);
 `
@@ -62,9 +62,10 @@ export const ConfigButton = styled.button<{ $isOpen: boolean }>`
   background-color: inherit;
 
   position: relative;
+  overflow: hidden;
 
   svg {
-    transition: 0.75s;
+    transition: transform 0.75s;
     transform: rotate(${(p) => (p.$isOpen ? '-180deg' : '0deg')});
   }
 
@@ -80,13 +81,14 @@ export const ConfigButton = styled.button<{ $isOpen: boolean }>`
 
     transform: translate(${(p) => (p.$isOpen ? '0,0' : '75px,-75px')})
       rotate(125deg);
-    transition: 0.75s;
+    transition: transform 0.75s;
 
     background-color: var(--tertiary-color);
   }
 `
 
 export const Settings = styled.div<{ $isOpen: boolean }>`
+  width: 75px;
   padding: 17.5px;
   border-bottom: 30px solid var(--secondary-color);
   border-radius: 50px 50px 0 0;
@@ -96,20 +98,28 @@ export const Settings = styled.div<{ $isOpen: boolean }>`
   gap: 25px;
 
   position: absolute;
-  bottom: 75px;
+  bottom: 35px;
   z-index: -1;
+  overflow-x: hidden;
 
   transform: scaleY(${(p) => (p.$isOpen ? 1 : 0)});
   transform-origin: bottom;
 
-  transition: 200ms;
+  transition: transform 200ms;
   background-color: var(--secondary-color);
 
   svg {
     cursor: pointer;
   }
+`
 
-  @media screen and (max-width: 500px) {
-    bottom: 100px;
-  }
+export const SwitchTheme = styled.button<{ $darkOrLight: 'dark' | 'light' }>`
+  width: max-content;
+  display: flex;
+  gap: 60px;
+
+  overflow: hidden;
+
+  transform: translateX(${(p) => (p.$darkOrLight === 'dark' ? '' : '-100px')});
+  transition: transform 1s cubic-bezier(1, 0.25, 0.25, 1);
 `

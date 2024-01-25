@@ -27,6 +27,7 @@
         "@typescript-eslint/space-before-function-paren": ["error", "never"],
         "@typescript-eslint/no-confusing-void-expression": ["error", { "ignoreArrowShorthand": true }],
         "@typescript-eslint/method-signature-style": ["error", "method"],
+        "@typescript-eslint/unbound-method": "off",
         "prettier/prettier": [
             "error",
             {

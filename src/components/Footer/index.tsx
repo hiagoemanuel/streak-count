@@ -10,12 +10,26 @@ import LightIcon from '@/svgs/light-mode.svg'
 import LogoutIcon from '@/svgs/log-out.svg'
 import TrashIcon from '@/svgs/trash.svg'
 
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import * as S from './style'
+import { ThemeContext, themes } from '@/contexts/theme'
 
 export default function Footer() {
   const [handlerConfigs, setHandlerConfig] = useState<boolean>(false)
-  const [switchTheme, setSwitchTheme] = useState<boolean>(false)
+  const { theme, setTheme } = useContext(ThemeContext)
+  const [currentTheme, setCurrentTheme] = useState<'dark' | 'light'>(() => {
+    return themes.dark === theme ? 'dark' : 'light'
+  })
+
+  const handlerTheme = () => {
+    if (currentTheme === 'dark') {
+      setTheme(themes.light)
+      setCurrentTheme('light')
+    } else {
+      setTheme(themes.dark)
+      setCurrentTheme('dark')
+    }
+  }
 
   return (
     <S.Footer>
@@ -30,7 +44,7 @@ export default function Footer() {
           {'<'}hiago emanuel{'>'}
         </Link>
       </S.Credits>
-      <S.Configs $isOpen={handlerConfigs}>
+      <S.Configs>
         <S.ConfigButton
           onClick={() => setHandlerConfig((p) => !p)}
           $isOpen={handlerConfigs}
@@ -47,9 +61,10 @@ export default function Footer() {
           <Link href="/reset-streak">
             <ResetIcon />
           </Link>
-          <button onClick={() => setSwitchTheme((p) => !p)}>
-            {switchTheme ? <DarkIcon /> : <LightIcon />}
-          </button>
+          <S.SwitchTheme $darkOrLight={currentTheme}>
+            <DarkIcon onClick={handlerTheme} />
+            <LightIcon onClick={handlerTheme} />
+          </S.SwitchTheme>
         </S.Settings>
       </S.Configs>
     </S.Footer>
