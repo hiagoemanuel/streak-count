@@ -15,7 +15,7 @@ export const Container = styled.div`
   left: 0;
   z-index: 10000;
 
-  background-color: #00000015;
+  background-color: #00000010;
 `
 
 export const Form = styled.form`

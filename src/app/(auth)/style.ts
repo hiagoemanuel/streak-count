@@ -49,14 +49,14 @@ export const Credentials = styled.div`
     border-radius: 20px;
 
     font-family: inherit;
-    color: var(--quartenary-color);
+    color: var(--text-color);
 
     background-color: transparent;
 
     &::-webkit-input-placeholder,
     &::placeholder {
       font-size: 15px;
-      color: var(--quartenary-color);
+      color: var(--text-color);
     }
   }
 `
@@ -135,7 +135,7 @@ export const AuthSubmit = styled.div`
     text-align: center;
     font-size: 20px;
     font-family: inherit;
-    color: var(--quartenary-color);
+    color: var(--text-color);
     background-color: var(--tertiary-color);
   }
 `

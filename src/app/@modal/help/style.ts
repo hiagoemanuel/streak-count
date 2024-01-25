@@ -2,6 +2,22 @@
 
 import styled from 'styled-components'
 
+export const Container = styled.div`
+  width: 100%;
+  height: 100svh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+
+  background-color: #00000015;
+`
+
 export const HelpModal = styled.div`
   width: 400px;
   padding: 50px;
@@ -62,7 +78,7 @@ export const Description = styled.p`
 
   font-size: 16px;
   line-height: 22px;
-  color: var(--quartenary-color);
+  color: var(--text-color);
 
   @media screen and (max-width: 400px) {
     font-size: 12px;
@@ -77,17 +93,17 @@ export const IconsDetails = styled.div`
 
 export const IconDescription = styled.p`
   font-size: 16px;
-  color: var(--quartenary-color);
+  color: var(--text-color);
 
   svg {
     width: 30px;
     path {
-      fill: var(--quartenary-color);
+      fill: var(--text-color);
     }
 
     &#reset-icon path {
       fill: none;
-      stroke: var(--quartenary-color);
+      stroke: var(--text-color);
     }
   }
 

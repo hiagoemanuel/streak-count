@@ -105,6 +105,10 @@ export const Settings = styled.div<{ $isOpen: boolean }>`
   transition: 200ms;
   background-color: var(--secondary-color);
 
+  svg {
+    cursor: pointer;
+  }
+
   @media screen and (max-width: 500px) {
     bottom: 100px;
   }

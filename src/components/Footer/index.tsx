@@ -47,9 +47,9 @@ export default function Footer() {
           <Link href="/reset-streak">
             <ResetIcon />
           </Link>
-          <div onClick={() => setSwitchTheme((p) => !p)}>
+          <button onClick={() => setSwitchTheme((p) => !p)}>
             {switchTheme ? <DarkIcon /> : <LightIcon />}
-          </div>
+          </button>
         </S.Settings>
       </S.Configs>
     </S.Footer>

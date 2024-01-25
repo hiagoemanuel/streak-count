@@ -1,9 +1,10 @@
 import { Aldrich } from 'next/font/google'
+import type { Metadata } from 'next'
 
+import ThemeProvider from '@/contexts/theme'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
-import type { Metadata } from 'next'
 import '@/styles/global.css'
 import { RootLayoutContainer } from './style'
 
@@ -19,15 +20,17 @@ export default function RootLayout(props: {
   modal: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={aldrich.className}>
-        <RootLayoutContainer>
-          <Header />
-          {props.children}
-          <Footer />
-        </RootLayoutContainer>
-        {props.modal}
-      </body>
-    </html>
+    <ThemeProvider>
+      <html lang="en">
+        <body className={aldrich.className}>
+          <RootLayoutContainer>
+            <Header />
+            {props.children}
+            <Footer />
+          </RootLayoutContainer>
+          {props.modal}
+        </body>
+      </html>
+    </ThemeProvider>
   )
 }

@@ -11,14 +11,13 @@ import TrashIcon from '@/svgs/trash.svg'
 import ResetIcon from '@/svgs/reset.svg'
 import ThemeIcon from '@/svgs/preferred-theme.svg'
 
-import { Container } from '../style'
 import * as S from './style'
 
 export default function Help() {
   const router = useRouter()
 
   return (
-    <Container>
+    <S.Container>
       <S.HelpModal>
         <S.HeaderModal>
           <h1>how to use</h1>
@@ -46,6 +45,6 @@ export default function Help() {
           </S.IconDescription>
         </S.IconsDetails>
       </S.HelpModal>
-    </Container>
+    </S.Container>
   )
 }

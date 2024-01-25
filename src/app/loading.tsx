@@ -2,7 +2,15 @@
 
 import styled, { keyframes } from 'styled-components'
 
-export const Container = styled.div`
+export default function Loading() {
+  return (
+    <Container>
+      <Spínner />
+    </Container>
+  )
+}
+
+const Container = styled.div`
   width: 100%;
   height: 100svh;
 
@@ -22,7 +30,7 @@ const rotate = keyframes`
   to { transform: rotate(360deg); }
 `
 
-export const Spínner = styled.div`
+const Spínner = styled.div`
   width: 50px;
   height: 50px;
   border: 19px dotted var(--tertiary-color);

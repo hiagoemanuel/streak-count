@@ -99,7 +99,7 @@ export const Streak = styled.div`
   justify-content: space-between;
 
   cursor: pointer;
-  color: var(--quartenary-color);
+  color: var(--text-color);
 
   @media screen and (max-width: 400px) {
     h1 {
