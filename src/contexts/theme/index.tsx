@@ -31,7 +31,13 @@ export default function ThemeProvider({
 }: {
   children: React.ReactNode
 }) {
-  const [theme, setTheme] = useState(themes.dark)
+  const [theme, setTheme] = useState(() => {
+    if (localStorage.getItem('current-theme') === 'dark') {
+      return themes.dark
+    } else {
+      return themes.light
+    }
+  })
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>

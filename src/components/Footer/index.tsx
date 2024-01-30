@@ -25,9 +25,11 @@ export default function Footer() {
     if (currentTheme === 'dark') {
       setTheme(themes.light)
       setCurrentTheme('light')
+      localStorage.setItem('current-theme', 'light')
     } else {
       setTheme(themes.dark)
       setCurrentTheme('dark')
+      localStorage.setItem('current-theme', 'dark')
     }
   }
 
