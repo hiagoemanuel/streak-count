@@ -32,10 +32,15 @@ export default function ThemeProvider({
   children: React.ReactNode
 }) {
   const [theme, setTheme] = useState(() => {
-    if (localStorage.getItem('current-theme') === 'dark') {
-      return themes.dark
+    if (typeof window !== 'undefined') {
+      if (localStorage.getItem('current-theme') === 'light') {
+        return themes.light
+      } else {
+        return themes.dark
+      }
     } else {
-      return themes.light
+      console.log('passwre')
+      return themes.dark
     }
   })
 

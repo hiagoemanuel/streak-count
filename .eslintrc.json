@@ -24,7 +24,7 @@
     "rules": {
         "react/react-in-jsx-scope": "off",
         "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/space-before-function-paren": ["error", "never"],
+        "@typescript-eslint/space-before-function-paren": ["error", { "anonymous": "ignore", "named": "never" }],
         "@typescript-eslint/no-confusing-void-expression": ["error", { "ignoreArrowShorthand": true }],
         "@typescript-eslint/method-signature-style": ["error", "method"],
         "@typescript-eslint/unbound-method": "off",

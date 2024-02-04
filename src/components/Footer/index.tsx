@@ -10,16 +10,22 @@ import LightIcon from '@/svgs/light-mode.svg'
 import LogoutIcon from '@/svgs/log-out.svg'
 import TrashIcon from '@/svgs/trash.svg'
 
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import * as S from './style'
 import { ThemeContext, themes } from '@/contexts/theme'
 
 export default function Footer() {
   const [handlerConfigs, setHandlerConfig] = useState<boolean>(false)
   const { theme, setTheme } = useContext(ThemeContext)
-  const [currentTheme, setCurrentTheme] = useState<'dark' | 'light'>(() => {
-    return themes.dark === theme ? 'dark' : 'light'
-  })
+  const [currentTheme, setCurrentTheme] = useState<'dark' | 'light'>('dark')
+
+  useEffect(() => {
+    if (themes.dark === theme) {
+      setCurrentTheme('dark')
+    } else {
+      setCurrentTheme('light')
+    }
+  }, [theme])
 
   const handlerTheme = () => {
     if (currentTheme === 'dark') {
