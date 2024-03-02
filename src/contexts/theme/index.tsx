@@ -39,7 +39,6 @@ export default function ThemeProvider({
         return themes.dark
       }
     } else {
-      console.log('passwre')
       return themes.dark
     }
   })
