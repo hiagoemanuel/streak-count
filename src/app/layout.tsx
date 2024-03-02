@@ -20,7 +20,10 @@ export default function RootLayout(props: {
 }) {
   return (
     <ThemeProvider>
-      <html lang="en">
+      <html
+        lang="en"
+        className="bg-light-100 text-dark-100 dark:bg-dark-100 dark:text-light-100"
+      >
         <body className={aldrich.className}>
           <main className="h-svh p-7 flex flex-col justify-between">
             <Header />

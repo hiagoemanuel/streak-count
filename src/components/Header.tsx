@@ -15,9 +15,7 @@ export default function Header() {
       <header className="flex justify-between items-center">
         <div className="flex items-baseline gap-2">
           <UserIcon />
-          <h2 className="text-dark-100 hidden dark:text-light-100 sm:block">
-            hiago emanuel
-          </h2>
+          <h3 className="text-orange hidden sm:block">hiago emanuel</h3>
         </div>
         <Link href="/">
           <HomeIcon />
