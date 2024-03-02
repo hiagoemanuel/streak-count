@@ -2,15 +2,6 @@
 
 import styled from 'styled-components'
 
-export const RootLayoutContainer = styled.main`
-  height: 100svh;
-  padding: 30px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`
-
 export const Container = styled.div`
   width: 400px;
   max-width: 100%;

@@ -9,7 +9,7 @@ export const themes: IThemes = {
     primaryColor: '#1E1E1E',
     secondaryColor: '#151515',
     tertiaryColor: '#FC6011',
-    textColor: '#FFFFFF',
+    textColor: '#F3F3F3',
     errorColor: '#FF4141'
   },
   light: {

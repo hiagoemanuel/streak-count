@@ -6,7 +6,6 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 import '@/styles/global.css'
-import { RootLayoutContainer } from './style'
 
 const aldrich = Aldrich({ weight: ['400'], subsets: ['latin'] })
 
@@ -23,11 +22,11 @@ export default function RootLayout(props: {
     <ThemeProvider>
       <html lang="en">
         <body className={aldrich.className}>
-          <RootLayoutContainer>
+          <main className="h-svh p-7 flex flex-col justify-between">
             <Header />
             {props.children}
             <Footer />
-          </RootLayoutContainer>
+          </main>
           {props.modal}
         </body>
       </html>
