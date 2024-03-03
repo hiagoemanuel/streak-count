@@ -16,6 +16,9 @@ module.exports = {
       error: '#FF4141'
     },
     extend: {
+      width: {
+        216: '54rem'
+      },
       screens: {
         xs: '360px'
       }

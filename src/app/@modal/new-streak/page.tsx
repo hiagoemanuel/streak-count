@@ -9,7 +9,7 @@ export default function NewStreak() {
         refuse: { value: "Don't Create", color: 'red' }
       }}
     >
-      <input type="text" placeholder="name *" />
+      <input className="text-input-form" type="text" placeholder="name *" />
     </Modal>
   )
 }

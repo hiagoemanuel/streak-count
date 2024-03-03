@@ -9,3 +9,9 @@
     h4 { @apply text-lg }
     p { @apply text-base }
 }
+
+@layer components {
+    .text-input-form {
+        @apply min-w-[95%] py-4 px-5 border-4 border-solid border-orange rounded-2xl outline-none bg-[transparent] placeholder:text-[inherit] 
+    }
+}
