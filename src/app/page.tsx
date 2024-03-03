@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import * as S from './style'
 
 const streakListTest = [
   { title: 'kekw', counter: 777 },
@@ -13,27 +12,32 @@ const streakListTest = [
 
 export default function Home() {
   return (
-    <S.Container>
-      <S.SubHeader>
-        <S.OrderList>
-          <div />
-          <div />
-          <div />
-        </S.OrderList>
+    <div className="w-10/12 self-center xl:w-216">
+      <header className="w-full flex justify-between">
+        <div className="w-7 h-6 flex flex-col justify-between cursor-pointer">
+          <div className="w-full h-1 bg-orange" />
+          <div className="w-full h-1 bg-orange" />
+          <div className="w-full h-1 bg-orange" />
+        </div>
         <Link href="/new-streak">
-          <S.NewStreak />
+          <div className="w-7 h-7 flex justify-center items-center relative">
+            <div className="w-full h-1 inline-block bg-orange rotate-90 absolute" />
+            <div className="w-full h-1 inline-block bg-orange " />
+          </div>
         </Link>
-      </S.SubHeader>
-      <S.StreakList>
+      </header>
+      <div className="h-48 overflow-y-scroll flex flex-col gap-1 scrollbar">
         {streakListTest.map((streak) => (
-          <Link href={streak.title} key={streak.title}>
-            <S.Streak>
-              <h1>{streak.title}</h1>
-              <h1>{streak.counter}</h1>
-            </S.Streak>
+          <Link
+            className="flex justify-between p-3 border-b-2 border-solid border-light-200 dark:border-dark-200 last:border-[transparent]"
+            href={streak.title}
+            key={streak.title}
+          >
+            <h1 className="text-xl sm:text-4xl">{streak.title}</h1>
+            <h1 className="text-xl sm:text-4xl">{streak.counter}</h1>
           </Link>
         ))}
-      </S.StreakList>
-    </S.Container>
+      </div>
+    </div>
   )
 }
