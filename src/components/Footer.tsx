@@ -11,7 +11,6 @@ import LogoutIcon from '@/svgs/log-out.svg'
 import TrashIcon from '@/svgs/trash.svg'
 
 import { useContext, useEffect, useState } from 'react'
-import * as S from './style'
 import { ThemeContext, themes } from '@/contexts/theme'
 
 export default function Footer() {
@@ -40,26 +39,40 @@ export default function Footer() {
   }
 
   return (
-    <S.Footer>
-      <S.HelpButton>
-        <Link href="/help">
+    <footer className="flex justify-between items-end gap-2 flex-wrap">
+      <div>
+        <Link
+          className="w-[4.688rem] h-[4.688rem] flex justify-center items-center rounded-full bg-light-200 dark:bg-dark-200"
+          href="/help"
+        >
           <InterrogationIcon />
         </Link>
-      </S.HelpButton>
-      <S.Credits>
+      </div>
+      <h4 className="order-1 mx-auto text-[.875rem] xs:text-lg min-[498px]:order-none">
         developed by{' '}
-        <Link href="https://github.com/hiagoemanuel" target="_blanck">
+        <Link
+          className="text-orange"
+          href="https://github.com/hiagoemanuel"
+          target="_blanck"
+        >
           {'<'}hiago emanuel{'>'}
         </Link>
-      </S.Credits>
-      <S.Configs>
-        <S.ConfigButton
+      </h4>
+      <div className="w-[4.688rem] h-[4.688rem] rounded-full z-10 relative bg-light-200 dark:bg-dark-200">
+        <button
+          className="rounded-full w-full h-full flex justify-center items-center relative overflow-hidden bg-[inherit]"
           onClick={() => setHandlerConfig((p) => !p)}
-          $isOpen={handlerConfigs}
         >
-          <GearIcon className={handlerConfigs ? 'is-open' : ''} />
-        </S.ConfigButton>
-        <S.Settings $isOpen={handlerConfigs}>
+          <GearIcon
+            className={`${handlerConfigs ? '-rotate-180' : ''} transition-transform duration-700`}
+          />
+          <span
+            className={`${handlerConfigs ? 'translate-x-0 translate-y-0' : 'translate-x-20 -translate-y-20'} transition-transform -rotate-45 w-16 h-2 border-2 border-light-200 dark:border-dark-200 bg-orange  rounded-full z-10 absolute`}
+          />
+        </button>
+        <div
+          className={`${handlerConfigs ? 'scale-y-100' : 'scale-y-0'} transition-transform origin-bottom w-full p-4 pb-12 rounded-t-full flex flex-col gap-6 absolute bottom-9 -z-10 overflow-x-hidden bg-light-200 dark:bg-dark-200`}
+        >
           <Link href="/logout">
             <LogoutIcon />
           </Link>
@@ -69,12 +82,14 @@ export default function Footer() {
           <Link href="/reset-streak">
             <ResetIcon />
           </Link>
-          <S.SwitchTheme $darkOrLight={currentTheme}>
+          <button
+            className={`${currentTheme === 'light' ? '-translate-x-24' : ''} transition-transform w-max flex gap-14 overflow-hidden`}
+          >
             <DarkIcon onClick={handlerTheme} />
             <LightIcon onClick={handlerTheme} />
-          </S.SwitchTheme>
-        </S.Settings>
-      </S.Configs>
-    </S.Footer>
+          </button>
+        </div>
+      </div>
+    </footer>
   )
 }

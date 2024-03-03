@@ -15,7 +15,11 @@ module.exports = {
       orange: '#FC6011',
       error: '#FF4141'
     },
-    extend: {}
+    extend: {
+      screens: {
+        xs: '360px'
+      }
+    }
   },
   plugins: []
 }
