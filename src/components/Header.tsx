@@ -3,8 +3,8 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import UserIcon from '@/svgs/user-icon.svg'
-import HomeIcon from '@/svgs/home.svg'
+import { User } from './Svgs/User'
+import { Home } from './Svgs/Home'
 
 export default function Header() {
   const pathname = usePathname()
@@ -14,11 +14,11 @@ export default function Header() {
     return (
       <header className="flex justify-between items-center">
         <div className="flex items-baseline gap-2">
-          <UserIcon />
+          <User />
           <h3 className="text-orange hidden sm:block">hiago emanuel</h3>
         </div>
         <Link href="/">
-          <HomeIcon />
+          <Home />
         </Link>
       </header>
     )

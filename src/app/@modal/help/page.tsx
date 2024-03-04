@@ -2,14 +2,13 @@
 
 import { useRouter } from 'next/navigation'
 
-import EmojiAdd from '@/svgs/emoji-add.svg'
-import EmojiList from '@/svgs/emoji-list.svg'
-import EmojiGear from '@/svgs/emoji-gear.svg'
-
-import LogoutIcon from '@/svgs/log-out.svg'
-import TrashIcon from '@/svgs/trash.svg'
-import ResetIcon from '@/svgs/reset.svg'
-import ThemeIcon from '@/svgs/preferred-theme.svg'
+import { EmojiAdd } from '@/components/Svgs/EmojiAdd'
+import { EmojiList } from '@/components/Svgs/EmojiList'
+import { EmojiGear } from '@/components/Svgs/EmojiGear'
+import { LogOut } from '@/components/Svgs/LogOut'
+import { Trash } from '@/components/Svgs/Trash'
+import { Reset } from '@/components/Svgs/Reset'
+import { PrefferedTheme } from '@/components/Svgs/PrefferedTheme'
 
 import * as S from './style'
 
@@ -32,16 +31,16 @@ export default function Help() {
         </S.Description>
         <S.IconsDetails>
           <S.IconDescription>
-            <LogoutIcon /> - log out of account
+            <LogOut /> - log out of account
           </S.IconDescription>
           <S.IconDescription>
-            <TrashIcon /> - delete your streak count
+            <Trash /> - delete your streak count
           </S.IconDescription>
           <S.IconDescription>
-            <ResetIcon id="reset-icon" /> - reset your steak count
+            <Reset id="reset-icon" /> - reset your steak count
           </S.IconDescription>
           <S.IconDescription>
-            <ThemeIcon /> - choose your preferred theme
+            <PrefferedTheme /> - choose your preferred theme
           </S.IconDescription>
         </S.IconsDetails>
       </S.HelpModal>

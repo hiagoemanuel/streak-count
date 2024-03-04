@@ -1,16 +1,16 @@
 import Link from 'next/link'
-import InterrogationIcon from '@/svgs/interrogation.svg'
 import ConfigButton from './ConfigButton'
+import { Interrogation } from '../Svgs/Interrogation'
 
 export default function Footer() {
   return (
     <footer className="flex justify-between items-end gap-2 flex-wrap">
       <div>
         <Link
-          className="w-[4.688rem] h-[4.688rem] flex justify-center items-center rounded-full bg-light-200 dark:bg-dark-200"
+          className="w-20 h-20 flex justify-center items-center rounded-full bg-light-200 dark:bg-dark-200"
           href="/help"
         >
-          <InterrogationIcon />
+          <Interrogation />
         </Link>
       </div>
       <h4 className="order-1 mx-auto text-[.875rem] xs:text-lg min-[498px]:order-none">
