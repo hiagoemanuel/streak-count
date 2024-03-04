@@ -1,5 +1,6 @@
 import { Aldrich } from 'next/font/google'
 import type { Metadata } from 'next'
+import { cookies } from 'next/headers'
 
 import ThemeProvider from '@/contexts/theme'
 import Header from '@/components/Header'
@@ -18,11 +19,13 @@ export default function RootLayout(props: {
   children: React.ReactNode
   modal: React.ReactNode
 }) {
+  const themeCookie = cookies().get('USER_THEME')
+
   return (
     <ThemeProvider>
       <html
+        className={`${themeCookie?.value === 'dark' ? 'dark' : ''} bg-light-100 text-dark-100 dark:bg-dark-100 dark:text-light-100`}
         lang="en"
-        className="bg-light-100 text-dark-100 dark:bg-dark-100 dark:text-light-100"
       >
         <body className={aldrich.className}>
           <main className="h-svh p-7 flex flex-col justify-between">
