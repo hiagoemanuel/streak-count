@@ -7,7 +7,7 @@ export default function Modal({ children, title, inputs }: ModalProps) {
   const router = useRouter()
 
   return (
-    <div className="w-svw h-svh flex justify-center items-center absolute top-0 left-0 z-50 bg-[#00000010]">
+    <div className="w-svw h-svh flex justify-center items-center absolute top-0 left-0 z-40 bg-[#00000010]">
       <form
         className="w-216 p-5 rounded-2xl m-1 flex flex-col items-center gap-7 bg-light-200 dark:bg-dark-200 sm:m-7"
         action="/"
