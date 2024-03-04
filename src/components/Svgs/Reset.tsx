@@ -1,6 +1,10 @@
 import { type SVGProps } from 'react'
 
-export const Reset = (props: SVGProps<SVGSVGElement>) => (
+interface Props extends SVGProps<SVGSVGElement> {
+  path?: string | undefined
+}
+
+export const Reset = ({ path, ...props }: Props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -10,7 +14,7 @@ export const Reset = (props: SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <path
-      className="stroke-orange"
+      className={`${path ?? 'stroke-orange'}`}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={4}

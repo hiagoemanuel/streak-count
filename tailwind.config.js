@@ -17,6 +17,7 @@ module.exports = {
     },
     extend: {
       width: {
+        100: '25rem',
         216: '54rem'
       },
       screens: {
