@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import * as S from './style'
 
 export default function Streak({
   params
@@ -11,26 +10,27 @@ export default function Streak({
   const [count, setCount] = useState<number>(0)
 
   return (
-    <S.Container>
-      <S.Counter>
-        <h1>{count}</h1>
-        <h2>Streak Count</h2>
-        <h3>{params.streakCount}</h3>
-      </S.Counter>
-      <S.StreakButtons>
+    <div>
+      <div className="text-center">
+        <h1 className="xs:text-8xl">{count}</h1>
+        <h2 className="xs:text-4xl">Streak Count</h2>
+        <h3 className="xs:text-3xl">{params.streakCount}</h3>
+      </div>
+      <div className="mt-6 flex justify-center gap-6 xs:gap-11">
         <div
-          id="less"
-          onClick={() => {
-            setCount((c) => c - 1)
-          }}
-        />
+          className="min-w-20 min-h-20 xs:w-24 xs:h-24 rounded-full bg-light-200 dark:bg-dark-200 cursor-pointer flex justify-center items-center "
+          onClick={() => setCount((c) => c - 1)}
+        >
+          <span className="w-1/2 h-2  rounded-full bg-orange" />
+        </div>
         <div
-          id="more"
-          onClick={() => {
-            setCount((c) => c + 1)
-          }}
-        />
-      </S.StreakButtons>
-    </S.Container>
+          className="min-w-20 min-h-20 xs:w-24 xs:h-24 rounded-full bg-light-200 dark:bg-dark-200 relative cursor-pointer flex justify-center items-center "
+          onClick={() => setCount((c) => c + 1)}
+        >
+          <span className="w-1/2 h-2  rounded-full bg-orange absolute rotate-90" />
+          <span className="w-1/2 h-2  rounded-full bg-orange" />
+        </div>
+      </div>
+    </div>
   )
 }
