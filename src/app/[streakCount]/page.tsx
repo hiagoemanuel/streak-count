@@ -21,7 +21,7 @@ export default function Streak({
           className="min-w-20 min-h-20 xs:w-24 xs:h-24 rounded-full bg-light-200 dark:bg-dark-200 cursor-pointer flex justify-center items-center "
           onClick={() => setCount((c) => c - 1)}
         >
-          <span className="w-1/2 h-2  rounded-full bg-orange" />
+          <span className="w-1/2 h-2 rounded-full bg-orange" />
         </div>
         <div
           className="min-w-20 min-h-20 xs:w-24 xs:h-24 rounded-full bg-light-200 dark:bg-dark-200 relative cursor-pointer flex justify-center items-center "

@@ -13,7 +13,7 @@ export default function Footer() {
           <Interrogation />
         </Link>
       </div>
-      <h4 className="order-1 mx-auto text-[.875rem] xs:text-lg min-[498px]:order-none">
+      <h4 className="order-1 mx-auto text-[.875rem] xs:text-lg min-[509px]:order-none">
         developed by{' '}
         <Link
           className="text-orange"
