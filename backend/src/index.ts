@@ -1,12 +1,23 @@
 import express from 'express'
+import { config } from 'dotenv'
+import { MongoClient } from './database/mongodb'
 
-const app = express()
-const port = 8000
+const main = async () => {
+  config()
 
-app.get('/', (req, res) => {
-  res.send('hello :)')
-})
+  const app = express()
+  const port = process.env.PORT || 8080
 
-app.listen(port, () => {
-  console.log('Server Running on', port)
-})
+  await MongoClient.connect()
+
+  app.get('/users', async (req, res) => {
+    const users = await MongoClient.db.collection('users').find({}).toArray()
+    res.send(users)
+  })
+
+  app.listen(port, () => {
+    console.log('Server running on', port)
+  })
+}
+
+main()
