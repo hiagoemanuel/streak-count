@@ -6,7 +6,7 @@ export interface ICreateUserController {
 }
 
 export interface ICreateUserRepository {
-  createUser: () => Promise<User>
+  createUser: (userParams: ICreateUserParams) => Promise<User>
 }
 
 export interface ICreateUserParams {

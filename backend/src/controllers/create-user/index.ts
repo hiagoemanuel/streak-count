@@ -9,7 +9,9 @@ import {
 export class CreateUserController implements ICreateUserController {
   constructor(private readonly createUserRepository: ICreateUserRepository) {}
 
-  async handler(httpRequest: HttpRequest<ICreateUserParams>): Promise<HttpResponse<User | string>> {
+  async handler(
+    httpRequest: HttpRequest<ICreateUserParams>
+  ): Promise<HttpResponse<User | string>> {
     try {
       const fiedsRequired: string[] = ['name', 'email', 'password']
 
@@ -22,8 +24,10 @@ export class CreateUserController implements ICreateUserController {
         }
       }
 
-      const userCreated = await this.createUserRepository.createUser()
-      
+      const userCreated = await this.createUserRepository.createUser(
+        httpRequest.body
+      )
+
       return {
         statusCode: 200,
         body: userCreated

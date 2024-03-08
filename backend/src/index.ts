@@ -3,6 +3,8 @@ import { config } from 'dotenv'
 import { MongoClient } from './database/mongodb'
 import { MongoGetUsersRepository } from './repositories/get-users/mongo'
 import { GetUsersController } from './controllers/get-users'
+import { MongoCreateUserRepository } from './repositories/create-user/mongo'
+import { CreateUserController } from './controllers/create-user'
 
 const main = async () => {
   config()
@@ -14,15 +16,19 @@ const main = async () => {
   app.use(express.json())
 
   app.get('/users', async (req, res) => {
-    const userRepository = new MongoGetUsersRepository()
-    const getUserController = new GetUsersController(userRepository)
+    const getUserRepository = new MongoGetUsersRepository()
+    const getUserController = new GetUsersController(getUserRepository)
     const { statusCode, body } = await getUserController.handler()
 
     res.status(statusCode).send(body)
   })
 
   app.post('/users', async (req, res) => {
-    res.send('hello')
+    const createUserRepository = new MongoCreateUserRepository()
+    const createUserController = new CreateUserController(createUserRepository)
+    const { statusCode, body } = await createUserController.handler(req)
+
+    res.status(statusCode).send(body)
   })
 
   app.listen(port, () => {
