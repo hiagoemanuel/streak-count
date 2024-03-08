@@ -1,6 +1,7 @@
 import express from 'express'
 import { config } from 'dotenv'
 import { MongoClient } from './database/mongodb'
+import { MongoGetUsersRepository } from './repositories/get-users/mongo'
 
 const main = async () => {
   config()
@@ -11,7 +12,7 @@ const main = async () => {
   await MongoClient.connect()
 
   app.get('/users', async (req, res) => {
-    const users = await MongoClient.db.collection('users').find({}).toArray()
+    const users = await new MongoGetUsersRepository().getUsers()
     res.send(users)
   })
 
