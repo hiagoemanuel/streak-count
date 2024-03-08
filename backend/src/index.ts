@@ -11,6 +11,7 @@ const main = async () => {
   const port = process.env.PORT || 8080
 
   await MongoClient.connect()
+  app.use(express.json())
 
   app.get('/users', async (req, res) => {
     const userRepository = new MongoGetUsersRepository()
@@ -18,6 +19,10 @@ const main = async () => {
     const { statusCode, body } = await getUserController.handler()
 
     res.status(statusCode).send(body)
+  })
+
+  app.post('/users', async (req, res) => {
+    res.send('hello')
   })
 
   app.listen(port, () => {
