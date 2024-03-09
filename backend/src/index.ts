@@ -5,6 +5,8 @@ import { MongoGetUsersRepository } from './repositories/get-users/mongo'
 import { GetUsersController } from './controllers/get-users'
 import { MongoCreateUserRepository } from './repositories/create-user/mongo'
 import { CreateUserController } from './controllers/create-user'
+import { MongoDeleteUserRepository } from './repositories/delete-user/mongodb'
+import { DeleteUserController } from './controllers/delete-user'
 
 const main = async () => {
   config()
@@ -27,6 +29,14 @@ const main = async () => {
     const createUserRepository = new MongoCreateUserRepository()
     const createUserController = new CreateUserController(createUserRepository)
     const { statusCode, body } = await createUserController.handler(req)
+
+    res.status(statusCode).send(body)
+  })
+
+  app.delete('/users/:id', async (req, res) => {
+    const deleteUserRepository = new MongoDeleteUserRepository()
+    const deleteUserController = new DeleteUserController(deleteUserRepository)
+    const {statusCode, body} = await deleteUserController.handler(req.params.id)
 
     res.status(statusCode).send(body)
   })
