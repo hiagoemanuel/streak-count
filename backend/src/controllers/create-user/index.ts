@@ -1,26 +1,24 @@
-import { User } from '../../models/user'
-import { HttpRequest, HttpResponse } from '../protocols'
 import {
-  ICreateUserController,
-  ICreateUserRepository,
-  ICreateUserParams
-} from './protocols'
+  CreateUserParams,
+  CreateUserParamsType,
+  UserType
+} from '../../schemas/user'
+import { HttpRequest, HttpResponse } from '../protocols'
+import { ICreateUserController, ICreateUserRepository } from './protocols'
 
 export class CreateUserController implements ICreateUserController {
   constructor(private readonly createUserRepository: ICreateUserRepository) {}
 
   async handler(
-    httpRequest: HttpRequest<ICreateUserParams>
-  ): Promise<HttpResponse<User | string>> {
+    httpRequest: HttpRequest<CreateUserParamsType>
+  ): Promise<HttpResponse<UserType | string>> {
     try {
-      const fiedsRequired: string[] = ['name', 'email', 'password']
+      const fieldsRequired = CreateUserParams.safeParse(httpRequest.body)
 
-      for (const field of fiedsRequired) {
-        if (!httpRequest?.body?.[field as keyof ICreateUserParams]) {
-          return {
-            statusCode: 400,
-            body: `the ${field} has required`
-          }
+      if (!fieldsRequired.success) {
+        return {
+          statusCode: 400,
+          body: fieldsRequired.error.message
         }
       }
 
@@ -32,10 +30,10 @@ export class CreateUserController implements ICreateUserController {
         statusCode: 200,
         body: userCreated
       }
-    } catch {
+    } catch (err) {
       return {
         statusCode: 500,
-        body: 'something went wrong'
+        body: `${err || 'Something went wrong'}`
       }
     }
   }

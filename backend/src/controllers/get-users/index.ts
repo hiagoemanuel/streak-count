@@ -1,11 +1,11 @@
-import { User } from '../../models/user'
+import { UserType } from '../../schemas/user'
 import { HttpResponse } from '../protocols'
 import { IGetUserController, IGetUserRepository } from './protocols'
 
 export class GetUsersController implements IGetUserController {
   constructor(private readonly getUserRepository: IGetUserRepository) {}
 
-  async handler(): Promise<HttpResponse<User[] | string>> {
+  async handler(): Promise<HttpResponse<UserType[] | string>> {
     try {
       const users = await this.getUserRepository.getUsers()
 

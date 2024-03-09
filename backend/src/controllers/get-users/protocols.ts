@@ -1,10 +1,10 @@
-import { User } from '../../models/user'
+import { UserType } from '../../schemas/user'
 import { HttpResponse } from '../protocols'
 
 export interface IGetUserController {
-  handler: () => Promise<HttpResponse<User[] | string>> 
+  handler: () => Promise<HttpResponse<UserType[] | string>>
 }
 
 export interface IGetUserRepository {
-  getUsers: () => Promise<User[]>
+  getUsers: () => Promise<UserType[]>
 }
