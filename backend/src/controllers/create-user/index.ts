@@ -1,39 +1,41 @@
-import {
-  CreateUserParams,
-  CreateUserParamsType,
-  UserType
-} from '../../schemas/user'
+import { CreateUserParams, CreateUserParamsType, UserType } from '../../schemas/user'
 import { HttpRequest, HttpResponse } from '../protocols'
 import { ICreateUserController, ICreateUserRepository } from './protocols'
 
 export class CreateUserController implements ICreateUserController {
   constructor(private readonly createUserRepository: ICreateUserRepository) {}
 
-  async handler(
-    httpRequest: HttpRequest<CreateUserParamsType>
-  ): Promise<HttpResponse<UserType | string>> {
+  async handler(httpRequest: HttpRequest<CreateUserParamsType>): Promise<HttpResponse<UserType>> {
     try {
       const fieldsRequired = CreateUserParams.safeParse(httpRequest.body)
 
       if (!fieldsRequired.success) {
+        const message = fieldsRequired.error.issues
+          .map((issue) => `Field ${issue.path}: ${issue.message}`)
+          .reduce((prev, curr) => `${prev} and ${curr}`)
+
         return {
+          body: null,
+          massage: message,
           statusCode: 400,
-          body: fieldsRequired.error.message
+          statusText: 'Bad Request'
         }
       }
 
-      const userCreated = await this.createUserRepository.createUser(
-        httpRequest.body
-      )
+      const userCreated = await this.createUserRepository.createUser(httpRequest.body)
 
       return {
-        statusCode: 200,
-        body: userCreated
+        body: userCreated,
+        massage: 'The user was created',
+        statusCode: 201,
+        statusText: 'Created'
       }
-    } catch (err) {
+    } catch {
       return {
+        body: null,
+        massage: 'Something went wrong on the server side',
         statusCode: 500,
-        body: `${err || 'Something went wrong'}`
+        statusText: 'Internal Server Error'
       }
     }
   }

@@ -5,18 +5,22 @@ import { IDeleteUserController, IDeleteUserRepository } from './protocols'
 export class DeleteUserController implements IDeleteUserController {
   constructor(private readonly deleteUserRepository: IDeleteUserRepository) {}
 
-  async handler(userId: string): Promise<HttpResponse<UserType | string>> {
+  async handler(userId: string): Promise<HttpResponse<UserType>> {
     try {
       const userDeleted = await this.deleteUserRepository.deleteUser(userId)
 
       return {
+        body: userDeleted,
+        massage: 'The user was deleted',
         statusCode: 200,
-        body: userDeleted
+        statusText: 'OK'
       }
     } catch {
       return {
+        body: null,
+        massage: 'Something went wrong',
         statusCode: 500,
-        body: 'Something went wrong'
+        statusText: 'Internal Server Error'
       }
     }
   }

@@ -20,25 +20,25 @@ const main = async () => {
   app.get('/users', async (req, res) => {
     const getUserRepository = new MongoGetUsersRepository()
     const getUserController = new GetUsersController(getUserRepository)
-    const { statusCode, body } = await getUserController.handler()
+    const response = await getUserController.handler()
 
-    res.status(statusCode).send(body)
+    res.status(response.statusCode).send(response)
   })
 
   app.post('/users', async (req, res) => {
     const createUserRepository = new MongoCreateUserRepository()
     const createUserController = new CreateUserController(createUserRepository)
-    const { statusCode, body } = await createUserController.handler(req)
+    const response = await createUserController.handler(req)
 
-    res.status(statusCode).send(body)
+    res.status(response.statusCode).send(response)
   })
 
   app.delete('/users/:id', async (req, res) => {
     const deleteUserRepository = new MongoDeleteUserRepository()
     const deleteUserController = new DeleteUserController(deleteUserRepository)
-    const {statusCode, body} = await deleteUserController.handler(req.params.id)
+    const response = await deleteUserController.handler(req.params.id)
 
-    res.status(statusCode).send(body)
+    res.status(response.statusCode).send(response)
   })
 
   app.listen(port, () => {
