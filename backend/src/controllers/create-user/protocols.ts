@@ -2,7 +2,7 @@ import { CreateUserParamsType, UserType } from '../../schemas/user'
 import { HttpRequest, HttpResponse } from '../protocols'
 
 export interface ICreateUserController {
-  handler: (httpRequest: HttpRequest<CreateUserParamsType>) => Promise<HttpResponse<UserType>>
+  handler: (httpRequest: HttpRequest<CreateUserParamsType>) => Promise<HttpResponse<UserType | null>>
 }
 
 export interface ICreateUserRepository {

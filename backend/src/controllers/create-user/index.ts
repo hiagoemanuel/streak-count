@@ -1,51 +1,29 @@
 import { CreateUserParams, CreateUserParamsType, UserType } from '../../schemas/user'
+import { badRequest, created, internalServerError } from '../helpers'
 import { HttpRequest, HttpResponse } from '../protocols'
 import { ICreateUserController, ICreateUserRepository } from './protocols'
 
 export class CreateUserController implements ICreateUserController {
   constructor(private readonly createUserRepository: ICreateUserRepository) {}
 
-  async handler(httpRequest: HttpRequest<CreateUserParamsType>): Promise<HttpResponse<UserType>> {
+  async handler(httpRequest: HttpRequest<CreateUserParamsType>): Promise<HttpResponse<UserType | null>> {
     try {
       const fieldsRequired = CreateUserParams.safeParse(httpRequest.body)
 
       if (!fieldsRequired.success) {
         const message = fieldsRequired.error.issues
-          .map((issue) => `Field ${issue.path}: ${issue.message}`)
+          .map((issue) => `Field ${issue.path}: ${issue.message.toLowerCase()}`)
           .reduce((prev, curr) => `${prev} and ${curr}`)
-
-        return {
-          body: null,
-          massage: message,
-          statusCode: 400,
-          statusText: 'Bad Request'
-        }
+        return badRequest<null>(null, message)
       }
 
       const userCreated = await this.createUserRepository.createUser(httpRequest.body)
 
-      if (userCreated.dbConsult.userFound) {
-        return {
-          body: null,
-          massage: userCreated.dbConsult.message,
-          statusCode: 400,
-          statusText: 'Bad Request'
-        }
-      }
-
-      return {
-        body: userCreated.user,
-        massage: 'The user was created',
-        statusCode: 201,
-        statusText: 'Created'
-      }
+      if (userCreated.dbConsult.userFound) return badRequest<null>(null, userCreated.dbConsult.message)
+      if (!userCreated.user) return internalServerError<null>(null, 'Unable to create user, try again')
+      return created<UserType>(userCreated.user, 'The user was created')
     } catch {
-      return {
-        body: null,
-        massage: 'Something went wrong on the server side',
-        statusCode: 500,
-        statusText: 'Internal Server Error'
-      }
+      return internalServerError<null>(null, 'Something went wrong on the server side')
     }
   }
 }
