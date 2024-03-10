@@ -9,8 +9,6 @@ export class MongoDeleteUserRepository implements IDeleteUserRepository {
       .collection<Omit<UserType, 'id'>>('users')
       .findOneAndDelete({ _id: new ObjectId(userId) })
 
-    console.log(userDeleted)
-
     if (!userDeleted) throw new Error('This user does not exists')
 
     const { _id, ...rest } = userDeleted

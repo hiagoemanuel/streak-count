@@ -24,8 +24,17 @@ export class CreateUserController implements ICreateUserController {
 
       const userCreated = await this.createUserRepository.createUser(httpRequest.body)
 
+      if (userCreated.dbConsult.userFound) {
+        return {
+          body: null,
+          massage: userCreated.dbConsult.message,
+          statusCode: 400,
+          statusText: 'Bad Request'
+        }
+      }
+
       return {
-        body: userCreated,
+        body: userCreated.user,
         massage: 'The user was created',
         statusCode: 201,
         statusText: 'Created'

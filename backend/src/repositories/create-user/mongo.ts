@@ -1,11 +1,19 @@
 import bcrypt from 'bcrypt'
 
-import { ICreateUserRepository } from '../../controllers/create-user/protocols'
+import { ICheckUserAlreadyExists, ICreateUser, ICreateUserRepository } from '../../controllers/create-user/protocols'
 import { MongoClient } from '../../database/mongodb'
 import { CreateUserParamsType, UserType } from '../../schemas/user'
 
 export class MongoCreateUserRepository implements ICreateUserRepository {
-  async createUser(userParams: CreateUserParamsType): Promise<UserType> {
+  async createUser(userParams: CreateUserParamsType): Promise<ICreateUser> {
+    const userAlreadyExists = await this.checkUserAlreadyExists(userParams)
+    if (userAlreadyExists.userFound) {
+      return {
+        user: null,
+        dbConsult: userAlreadyExists
+      }
+    }
+
     const userSchema: Omit<UserType, 'id'> = {
       name: userParams.name,
       createdAt: new Date(),
@@ -15,20 +23,34 @@ export class MongoCreateUserRepository implements ICreateUserRepository {
       },
       streakCounts: []
     }
-
-    const userAlreadyExists = await MongoClient.db
-      .collection<Omit<UserType, 'id'>>('users')
-      .findOne({ $or: [{ 'credentials.email': userParams.email }, { name: userParams.name }] }, { projection: ['_id'] })
-
-    if (userAlreadyExists !== null) throw new Error('This user already exists')
-
     const { insertedId } = await MongoClient.db.collection('users').insertOne(userSchema)
-
+    
     const user = await MongoClient.db.collection<Omit<UserType, 'id'>>('users').findOne({ _id: insertedId })
 
-    if (!user) throw new Error('User was not created')
+    if (!user) throw new Error('The user was not created')
+
     const { _id, ...rest } = user
 
-    return { id: _id.toHexString(), ...rest }
+    return {
+      user: { id: _id.toHexString(), ...rest },
+      dbConsult: userAlreadyExists
+    }
+  }
+
+  async checkUserAlreadyExists(userParams: CreateUserParamsType): Promise<ICheckUserAlreadyExists> {
+    const user = await MongoClient.db
+      .collection<Omit<UserType, 'id'>>('users')
+      .findOne(
+        { $or: [{ 'credentials.email': userParams.email }, { name: userParams.name }] },
+        { projection: ['name', 'credentials.email'] }
+      )
+
+    if (user?.name === userParams.name) {
+      return { userFound: true, message: 'This name is already used' }
+    } else if (user?.credentials.email === userParams.email) {
+      return { userFound: true, message: 'This email is already used' }
+    } else {
+      return { userFound: false, message: 'The user was not found' }
+    }
   }
 }
