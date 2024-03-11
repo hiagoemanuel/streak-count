@@ -17,4 +17,5 @@ type ResponseType = <B>(body: B, message: string) => HttpResponse<B>
 export const ok: ResponseType = (body, message) => response({ body, message }, 'OK')
 export const created: ResponseType = (body, message) => response({ body, message }, 'CREATED')
 export const badRequest: ResponseType = (body, message) => response({ body, message }, 'BAD_REQUEST')
+export const notFound: ResponseType = (body, message) => response({ body, message }, 'NOT_FOUND')
 export const internalServerError: ResponseType = (body, message) => response({ body, message }, 'INTERNAL_SERVER_ERROR')
