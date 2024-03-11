@@ -20,4 +20,11 @@ export const CreateUserParams = z.object({
   password: UserSchema.shape.credentials.shape.password
 })
 
+export const UpdateUserParams = z.object({
+  name: UserSchema.shape.name.optional(),
+  email: UserSchema.shape.credentials.shape.email.optional(),
+  password: UserSchema.shape.credentials.shape.password.optional()
+})
+
 export type CreateUserParamsType = z.infer<typeof CreateUserParams>
+export type UpdateUseParamsType = z.infer<typeof UpdateUserParams>
