@@ -18,6 +18,14 @@ users.get('/', async (req, res) => {
   res.status(response.statusCode).send(response)
 })
 
+users.get('/:id', async (req, res) => {
+  const getUserRepository = new MongoGetUsersRepository()
+  const getUserController = new GetUsersController(getUserRepository)
+  const response = await getUserController.handlerOneUser(req.params.id)
+
+  res.status(response.statusCode).send(response)
+})
+
 users.post('/', async (req, res) => {
   const createUserRepository = new MongoCreateUserRepository()
   const createUserController = new CreateUserController(createUserRepository)
