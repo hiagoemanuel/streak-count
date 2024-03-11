@@ -1,6 +1,6 @@
-import { UserType } from '../../schemas/user'
-import { internalServerError, ok } from '../helpers'
-import { HttpResponse } from '../protocols'
+import { UserType } from '../../../schemas/user'
+import { internalServerError, ok } from '../../helpers'
+import { HttpResponse } from '../../protocols'
 import { IGetUserController, IGetUserRepository } from './protocols'
 
 export class GetUsersController implements IGetUserController {

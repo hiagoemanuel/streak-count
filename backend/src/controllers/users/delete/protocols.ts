@@ -1,5 +1,5 @@
-import { UserType } from '../../schemas/user'
-import { HttpResponse } from '../protocols'
+import { UserType } from '../../../schemas/user'
+import { HttpResponse } from '../../protocols'
 
 export interface IDeleteUserController {
   handler: (userId: string) => Promise<HttpResponse<UserType | null>>

@@ -1,12 +1,12 @@
 import express from 'express'
-import { MongoGetUsersRepository } from '../repositories/get-users/mongo'
-import { GetUsersController } from '../controllers/get-users'
-import { MongoCreateUserRepository } from '../repositories/create-user/mongo'
-import { CreateUserController } from '../controllers/create-user'
-import { MongoDeleteUserRepository } from '../repositories/delete-user/mongodb'
-import { DeleteUserController } from '../controllers/delete-user'
-import { MongoUpdateUserRepository } from '../repositories/update-user/mongodb'
-import { UpdateUserController } from '../controllers/update-user'
+import { MongoGetUsersRepository } from '../repositories/users/get/mongodb'
+import { GetUsersController } from '../controllers/users/get'
+import { MongoCreateUserRepository } from '../repositories/users/create/mongodb'
+import { CreateUserController } from '../controllers/users/create'
+import { MongoDeleteUserRepository } from '../repositories/users/delete/mongodb'
+import { DeleteUserController } from '../controllers/users/delete'
+import { MongoUpdateUserRepository } from '../repositories/users/update/mongodb'
+import { UpdateUserController } from '../controllers/users/update'
 
 export const users = express.Router()
 

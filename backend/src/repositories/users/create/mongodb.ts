@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt'
 
-import { ICheckUserAlreadyExists, ICreateUser, ICreateUserRepository } from '../../controllers/create-user/protocols'
-import { MongoClient } from '../../database/mongodb'
-import { CreateUserParamsType, UserType } from '../../schemas/user'
+import { ICheckUserAlreadyExists, ICreateUser, ICreateUserRepository } from '../../../controllers/users/create/protocols'
+import { MongoClient } from '../../../database/mongodb'
+import { CreateUserParamsType, UserType } from '../../../schemas/user'
 
 export class MongoCreateUserRepository implements ICreateUserRepository {
   async createUser(userParams: CreateUserParamsType): Promise<ICreateUser> {
@@ -24,7 +24,7 @@ export class MongoCreateUserRepository implements ICreateUserRepository {
       streakCounts: []
     }
     const { insertedId } = await MongoClient.db.collection('users').insertOne(userSchema)
-    
+
     const user = await MongoClient.db.collection<Omit<UserType, 'id'>>('users').findOne({ _id: insertedId })
 
     if (!user) throw new Error('The user was not created')

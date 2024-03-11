@@ -1,6 +1,6 @@
-import { UpdateUseParamsType, UpdateUserParams, UserType } from '../../schemas/user'
-import { badRequest, internalServerError, ok } from '../helpers'
-import { HttpRequest, HttpResponse } from '../protocols'
+import { UpdateUseParamsType, UpdateUserParams, UserType } from '../../../schemas/user'
+import { badRequest, internalServerError, ok } from '../../helpers'
+import { HttpRequest, HttpResponse } from '../../protocols'
 import { IUpdateUserController, IUpdateUserRepository } from './protocols'
 
 export class UpdateUserController implements IUpdateUserController {
@@ -9,7 +9,7 @@ export class UpdateUserController implements IUpdateUserController {
   async handler(userId: string, HttpRequest: HttpRequest<UpdateUseParamsType>): Promise<HttpResponse<UserType | null>> {
     try {
       const allowedFields = UpdateUserParams.safeParse(HttpRequest.body)
-      
+
       if (!allowedFields.success) {
         const message = allowedFields.error.issues
           .map((issue) => `Field ${issue.path}: ${issue.message.toLowerCase()}`)

@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb'
-import { IUpdateUserRepository } from '../../controllers/update-user/protocols'
-import { MongoClient } from '../../database/mongodb'
-import { UpdateUseParamsType, UserType } from '../../schemas/user'
+import { IUpdateUserRepository } from '../../../controllers/users/update/protocols'
+import { MongoClient } from '../../../database/mongodb'
+import { UpdateUseParamsType, UserType } from '../../../schemas/user'
 
 export class MongoUpdateUserRepository implements IUpdateUserRepository {
   async updateUser(userId: string, userParams: UpdateUseParamsType): Promise<UserType> {

@@ -1,6 +1,6 @@
-import { IDeleteUserRepository } from '../../controllers/delete-user/protocols'
-import { MongoClient } from '../../database/mongodb'
-import { UserType } from '../../schemas/user'
+import { IDeleteUserRepository } from '../../../controllers/users/delete/protocols'
+import { MongoClient } from '../../../database/mongodb'
+import { UserType } from '../../../schemas/user'
 import { ObjectId } from 'mongodb'
 
 export class MongoDeleteUserRepository implements IDeleteUserRepository {

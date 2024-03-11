@@ -1,6 +1,6 @@
-import { CreateUserParams, CreateUserParamsType, UserType } from '../../schemas/user'
-import { badRequest, created, internalServerError } from '../helpers'
-import { HttpRequest, HttpResponse } from '../protocols'
+import { CreateUserParams, CreateUserParamsType, UserType } from '../../../schemas/user'
+import { badRequest, created, internalServerError } from '../../helpers'
+import { HttpRequest, HttpResponse } from '../../protocols'
 import { ICreateUserController, ICreateUserRepository } from './protocols'
 
 export class CreateUserController implements ICreateUserController {
