@@ -7,4 +7,12 @@ export interface IUpdateUserController {
 
 export interface IUpdateUserRepository {
   updateUser: (userId: string, userParams: UpdateUseParamsType) => Promise<UserType>
+  nameOrEmailAlreadyUsed: (userId: string, userParams: UpdateUseParamsType) => Promise<INameOrEmailAlreadyUsed>
+}
+
+
+export interface INameOrEmailAlreadyUsed {
+  nameOrEmailfound: boolean
+  message: string
+  userSelected?: UserType
 }

@@ -1,6 +1,10 @@
 import bcrypt from 'bcrypt'
 
-import { ICheckUserAlreadyExists, ICreateUser, ICreateUserRepository } from '../../../controllers/users/create/protocols'
+import {
+  ICheckUserAlreadyExists,
+  ICreateUser,
+  ICreateUserRepository
+} from '../../../controllers/users/create/protocols'
 import { MongoClient } from '../../../database/mongodb'
 import { CreateUserParamsType, UserType } from '../../../schemas/user'
 
@@ -44,8 +48,9 @@ export class MongoCreateUserRepository implements ICreateUserRepository {
         { $or: [{ 'credentials.email': userParams.email }, { name: userParams.name }] },
         { projection: ['name', 'credentials.email'] }
       )
-
-    if (user?.name === userParams.name) {
+    if (user?.name === userParams.name && user?.credentials.email === userParams.email) {
+      return {userFound: true, message: 'This name and email is already used'}
+    } else if (user?.name === userParams.name) {
       return { userFound: true, message: 'This name is already used' }
     } else if (user?.credentials.email === userParams.email) {
       return { userFound: true, message: 'This email is already used' }
