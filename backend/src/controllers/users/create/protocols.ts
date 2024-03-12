@@ -7,7 +7,6 @@ export interface ICreateUserController {
 
 export interface ICreateUserRepository {
   createUser: (userParams: CreateUserParamsType) => Promise<ICreateUser>
-  checkUserAlreadyExists: (userParams: CreateUserParamsType) => Promise<ICheckUserAlreadyExists>
 }
 
 export interface ICreateUser {
