@@ -19,7 +19,7 @@ export class MongoUpdateUserRepository implements IUpdateUserRepository {
           name: userParams.name ?? defualtUser.name,
           credentials: {
             email: userParams.email ?? defualtUser.credentials.email,
-            password: bcrypt.hashSync(userParams.password ?? defualtUser.credentials.password, 10)
+            password: userParams.password ? bcrypt.hashSync(userParams.password, 10) : defualtUser.credentials.password
           }
         }
       }
