@@ -1,4 +1,4 @@
-import { StreakCountCollectionType } from '../../../schemas/streakCount'
+import { StreakCountType } from '../../../schemas/streakCount'
 import { internalServerError, ok } from '../../helpers'
 import { HttpResponse } from '../../protocols'
 import { IGetStrekCountsController, IGetStrekCountsRepository } from './protocols'
@@ -6,10 +6,10 @@ import { IGetStrekCountsController, IGetStrekCountsRepository } from './protocol
 export class GetStreakCountsController implements IGetStrekCountsController {
   constructor(private readonly getStreakCountsRepository: IGetStrekCountsRepository) {}
 
-  async handler(): Promise<HttpResponse<StreakCountCollectionType[] | null>> {
+  async handler(): Promise<HttpResponse<StreakCountType[] | null>> {
     try {
-      const streakCounsts = await this.getStreakCountsRepository.getStreakCounts()  
-      return ok<StreakCountCollectionType[]>(streakCounsts, 'All streak counts were received')
+      const streakCounsts = await this.getStreakCountsRepository.getStreakCounts()
+      return ok<StreakCountType[]>(streakCounsts, 'All streak counts were received')
     } catch (err) {
       return internalServerError<null>(null, String(err))
     }

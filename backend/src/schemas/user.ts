@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { StreakCountSchema } from './streakCount'
 
 export const UserSchema = z.object({
   id: z.string(),
@@ -8,10 +9,7 @@ export const UserSchema = z.object({
     email: z.string().email().min(6),
     password: z.string().min(8).max(16)
   }),
-  _streakCounts: z.object({
-    href: z.string(),
-    method: z.string()
-  })
+  streakCounts: z.array(StreakCountSchema)
 })
 
 export type UserType = z.infer<typeof UserSchema>

@@ -1,10 +1,10 @@
-import { StreakCountCollectionType } from '../../../schemas/streakCount'
+import { StreakCountDocType } from '../../../schemas/streakCount'
 import { HttpResponse } from '../../protocols'
 
 export interface IGetStrekCountsController {
-  handler: () => Promise<HttpResponse<StreakCountCollectionType[] | null>>
+  handler: () => Promise<HttpResponse<StreakCountDocType[] | null>>
 }
 
 export interface IGetStrekCountsRepository {
-  getStreakCounts: () => Promise<StreakCountCollectionType[]>
+  getStreakCounts: () => Promise<StreakCountDocType[]>
 }
