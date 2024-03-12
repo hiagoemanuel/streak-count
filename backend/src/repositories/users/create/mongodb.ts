@@ -26,7 +26,10 @@ export class MongoCreateUserRepository implements ICreateUserRepository {
         email: userParams.email,
         password: bcrypt.hashSync(userParams.password, 10)
       },
-      streakCounts: []
+      _streakCounts: {
+        href: '/streak-counts',
+        method: 'GET'
+      }
     }
     const { insertedId } = await MongoClient.db.collection('users').insertOne(userSchema)
 
