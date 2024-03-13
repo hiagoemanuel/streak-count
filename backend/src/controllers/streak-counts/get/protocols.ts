@@ -1,10 +1,10 @@
-import { StreakCountDocType } from '../../../schemas/streakCount'
+import { UserType } from '../../../schemas/user'
 import { HttpResponse } from '../../protocols'
 
 export interface IGetStrekCountsController {
-  handler: () => Promise<HttpResponse<StreakCountDocType[] | null>>
+  handler: () => Promise<HttpResponse<UserType[] | null>>
 }
 
 export interface IGetStrekCountsRepository {
-  getStreakCounts: () => Promise<StreakCountDocType[]>
+  getStreakCounts: () => Promise<UserType[]>
 }

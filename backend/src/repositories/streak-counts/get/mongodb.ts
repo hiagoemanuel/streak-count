@@ -1,11 +1,11 @@
 import { IGetStrekCountsRepository } from '../../../controllers/streak-counts/get/protocols'
 import { MongoClient } from '../../../database/mongodb'
-import { StreakCountType } from '../../../schemas/streakCount'
+import { UserType } from '../../../schemas/user'
 
 export class MongoGetStreakCountsRepository implements IGetStrekCountsRepository {
-  async getStreakCounts(): Promise<StreakCountType[]> {
+  async getStreakCounts(): Promise<UserType[]> {
     const streakCounts = await MongoClient.db
-      .collection<Omit<StreakCountType, 'id'>>('users')
+      .collection<Omit<UserType, 'id'>>('users')
       .find({ streakCounts: [] }, { projection: ['streakCounts', 'name'] })
       .toArray()
 
