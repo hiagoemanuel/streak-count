@@ -4,10 +4,10 @@ import { UserType } from '../../../schemas/user'
 import { ObjectId } from 'mongodb'
 
 export class MongoDeleteUserRepository implements IDeleteUserRepository {
-  async deleteUser(userId: string): Promise<UserType> {
+  async deleteUser(params: { id: string }): Promise<UserType> {
     const userDeleted = await MongoClient.db
       .collection<Omit<UserType, 'id'>>('users')
-      .findOneAndDelete({ _id: new ObjectId(userId) })
+      .findOneAndDelete({ _id: new ObjectId(params.id) })
 
     if (!userDeleted) throw 'This user does not exists'
 

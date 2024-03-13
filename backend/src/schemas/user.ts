@@ -27,4 +27,4 @@ export const UpdateUserParams = z.object({
 })
 
 export type CreateUserParamsType = z.infer<typeof CreateUserParams>
-export type UpdateUseParamsType = z.infer<typeof UpdateUserParams>
+export type UpdateUserParamsType = z.infer<typeof UpdateUserParams>

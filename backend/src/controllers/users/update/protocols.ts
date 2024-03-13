@@ -1,10 +1,10 @@
-import { UpdateUseParamsType, UserType } from '../../../schemas/user'
-import { HttpRequest, HttpResponse } from '../../protocols'
+import { UpdateUserParamsType, UserType } from '../../../schemas/user'
+import { Body, HttpRequest, HttpResponse, Params } from '../../protocols'
 
 export interface IUpdateUserController {
-  handler: (userId: string, HttpRequest: HttpRequest<UpdateUseParamsType>) => Promise<HttpResponse<UserType | null>>
+  handler: (req: HttpRequest<Body<UpdateUserParamsType> & Params<{ id: string }>>) => Promise<HttpResponse<UserType>>
 }
 
 export interface IUpdateUserRepository {
-  updateUser: (userId: string, userParams: UpdateUseParamsType) => Promise<UserType>
+  updateUser: (body: UpdateUserParamsType, params: { id: string }) => Promise<UserType>
 }

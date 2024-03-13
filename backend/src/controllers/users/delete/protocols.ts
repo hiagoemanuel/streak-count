@@ -1,10 +1,10 @@
 import { UserType } from '../../../schemas/user'
-import { HttpResponse } from '../../protocols'
+import { HttpRequest, HttpResponse, Params } from '../../protocols'
 
 export interface IDeleteUserController {
-  handler: (userId: string) => Promise<HttpResponse<UserType | null>>
+  handler: (req: HttpRequest<Params<{ id: string }>>) => Promise<HttpResponse<UserType>>
 }
 
 export interface IDeleteUserRepository {
-  deleteUser: (userId: string) => Promise<UserType>
+  deleteUser: (params: { id: string }) => Promise<UserType>
 }

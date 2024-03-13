@@ -1,12 +1,12 @@
 import { UserType } from '../../../schemas/user'
 import { internalServerError, notFound, ok } from '../../helpers'
-import { HttpResponse } from '../../protocols'
+import { HttpRequest, HttpResponse, Params } from '../../protocols'
 import { IGetUserController, IGetUserRepository } from './protocols'
 
 export class GetUsersController implements IGetUserController {
   constructor(private readonly getUserRepository: IGetUserRepository) {}
 
-  async handler(): Promise<HttpResponse<UserType[] | null>> {
+  async handler(): Promise<HttpResponse<UserType[]>> {
     try {
       const users = await this.getUserRepository.getUsers()
       return ok<UserType[]>(users, 'All users were received')
@@ -15,9 +15,9 @@ export class GetUsersController implements IGetUserController {
     }
   }
 
-  async handlerOneUser(userId: string): Promise<HttpResponse<UserType | null>> {
+  async handlerOneUser(req: HttpRequest<Params<{ id: string }>>): Promise<HttpResponse<UserType>> {
     try {
-      const user = await this.getUserRepository.getOneUser(userId)
+      const user = await this.getUserRepository.getOneUser(req.params.id)
       if (!user) return notFound<null>(null, 'User was not found')
       return ok<UserType>(user, 'User was found')
     } catch (err) {

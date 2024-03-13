@@ -6,7 +6,7 @@ import { IGetStrekCountsController, IGetStrekCountsRepository } from './protocol
 export class GetStreakCountsController implements IGetStrekCountsController {
   constructor(private readonly getStreakCountsRepository: IGetStrekCountsRepository) {}
 
-  async handler(): Promise<HttpResponse<UserType[] | null>> {
+  async handler(): Promise<HttpResponse<UserType[]>> {
     try {
       const streakCounsts = await this.getStreakCountsRepository.getStreakCounts()
       return created<UserType[]>(streakCounsts, 'All streak counts were received')

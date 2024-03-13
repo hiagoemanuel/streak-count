@@ -17,7 +17,7 @@ streakCounts.get('/', async (req, res) => {
 streakCounts.post('/', async (req, res) => {
   const createStreakCountRepository = new MongoCreateStreakCountRepository()
   const createStreakCountController = new CreateStreakCountController(createStreakCountRepository)
-  const response = await createStreakCountController.handler(req)
+  const response = await createStreakCountController.handler({ body: req.body })
 
   res.status(response.statusCode).send(response)
 })

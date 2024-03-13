@@ -1,14 +1,14 @@
 import { CreateUserParams, CreateUserParamsType, UserType } from '../../../schemas/user'
 import { badRequest, created, internalServerError } from '../../helpers'
-import { HttpRequest, HttpResponse } from '../../protocols'
+import { Body, HttpRequest, HttpResponse } from '../../protocols'
 import { ICreateUserController, ICreateUserRepository } from './protocols'
 
 export class CreateUserController implements ICreateUserController {
   constructor(private readonly createUserRepository: ICreateUserRepository) {}
 
-  async handler(httpRequest: HttpRequest<CreateUserParamsType>): Promise<HttpResponse<UserType | null>> {
+  async handler(req: HttpRequest<Body<CreateUserParamsType>>): Promise<HttpResponse<UserType>> {
     try {
-      const fieldsRequired = CreateUserParams.safeParse(httpRequest.body)
+      const fieldsRequired = CreateUserParams.safeParse(req.body)
 
       if (!fieldsRequired.success) {
         const message = fieldsRequired.error.issues
@@ -17,7 +17,7 @@ export class CreateUserController implements ICreateUserController {
         return badRequest<null>(null, message)
       }
 
-      const userCreated = await this.createUserRepository.createUser(httpRequest.body)
+      const userCreated = await this.createUserRepository.createUser(req.body)
 
       if (userCreated.dbConsult.userFound) return badRequest<null>(null, userCreated.dbConsult.message)
       if (!userCreated.user) return internalServerError<null>(null, 'Unable to create user, try again')

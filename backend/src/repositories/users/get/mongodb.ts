@@ -12,8 +12,9 @@ export class MongoGetUsersRepository implements IGetUserRepository {
       ...rest
     }))
   }
-  async getOneUser(userId: string): Promise<UserType> {
-    const user = await MongoClient.db.collection<Omit<UserType, 'id'>>('users').findOne({ _id: new ObjectId(userId) })
+  
+  async getOneUser(id: string): Promise<UserType> {
+    const user = await MongoClient.db.collection<Omit<UserType, 'id'>>('users').findOne({ _id: new ObjectId(id) })
 
     if (!user) throw 'User was not found, try again'
 

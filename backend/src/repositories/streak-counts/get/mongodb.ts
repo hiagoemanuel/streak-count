@@ -6,7 +6,7 @@ export class MongoGetStreakCountsRepository implements IGetStrekCountsRepository
   async getStreakCounts(): Promise<UserType[]> {
     const streakCounts = await MongoClient.db
       .collection<Omit<UserType, 'id'>>('users')
-      .find({ streakCounts: [] }, { projection: ['streakCounts', 'name'] })
+      .find({ }, { projection: ['streakCounts', 'name'] })
       .toArray()
 
     return streakCounts.map(({ _id, ...rest }) => ({
