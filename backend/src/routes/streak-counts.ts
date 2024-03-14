@@ -14,6 +14,14 @@ streakCounts.get('/', async (req, res) => {
   res.status(response.statusCode).send(response)
 })
 
+streakCounts.get('/:id', async (req, res) => {
+  const getStreakCountsRepository = new MongoGetStreakCountsRepository()
+  const getStrekCountsCrontroller = new GetStreakCountsController(getStreakCountsRepository)
+  const response = await getStrekCountsCrontroller.handlerOneStreakCount({ params: req.params })
+
+  res.status(response.statusCode).send(response)
+})
+
 streakCounts.post('/', async (req, res) => {
   const createStreakCountRepository = new MongoCreateStreakCountRepository()
   const createStreakCountController = new CreateStreakCountController(createStreakCountRepository)
