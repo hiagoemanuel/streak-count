@@ -3,7 +3,7 @@ import { internalServerError, ok } from '../../helpers'
 import { HttpRequest, Params, HttpResponse } from '../../protocols'
 import { IDeleteStreakCountController, IDeleteStreakCountRepository } from './protocols'
 
-export class DeleteStreakCount implements IDeleteStreakCountController {
+export class DeleteStreakCountController implements IDeleteStreakCountController {
   constructor (private readonly deleteStrekCountRepository: IDeleteStreakCountRepository) {}
 
   async handler(req: HttpRequest<Params<{ id: string }>>): Promise<HttpResponse<StreakCountType>> {

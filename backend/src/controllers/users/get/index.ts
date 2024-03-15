@@ -10,8 +10,8 @@ export class GetUsersController implements IGetUserController {
     try {
       const users = await this.getUserRepository.getUsers()
       return ok<UserType[]>(users, 'All users were received')
-    } catch {
-      return internalServerError<null>(null, 'Something went wrong')
+    } catch (err) {
+      return internalServerError<null>(null, String(err))
     }
   }
 
