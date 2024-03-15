@@ -5,16 +5,21 @@ import { UserType } from '../../../schemas/user'
 
 export class MongoGetUsersRepository implements IGetUserRepository {
   async getUsers(): Promise<UserType[]> {
-    const users = await MongoClient.db.collection<Omit<UserType, 'id'>>('users').find({}).toArray()
+    const users = await MongoClient.db
+      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
+      .find({})
+      .toArray()
 
     return users.map(({ _id, ...rest }) => ({
       id: _id.toHexString(),
       ...rest
     }))
   }
-  
+
   async getOneUser(id: string): Promise<UserType> {
-    const user = await MongoClient.db.collection<Omit<UserType, 'id'>>('users').findOne({ _id: new ObjectId(id) })
+    const user = await MongoClient.db
+      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
+      .findOne({ _id: new ObjectId(id) })
 
     if (!user) throw 'User was not found, try again'
 

@@ -2,11 +2,12 @@ import { ObjectId } from 'mongodb'
 import { MongoClient } from '../../database/mongodb'
 import { UserType } from '../../schemas/user'
 import { IMongoQueryDbRepository, IQueryDbResponse } from './protocols'
+import process from 'process'
 
 export class MongoQueryDbRepository implements IMongoQueryDbRepository {
   async findNameOrEmail(name: string, email: string): Promise<IQueryDbResponse> {
     const user = await MongoClient.db
-      .collection<Omit<UserType, 'id'>>('users')
+      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
       .findOne({ $or: [{ 'credentials.email': email }, { name }] }, { projection: ['name', 'credentials.email'] })
 
     if (!user) return { wasFound: false, message: 'The user was not found' }
@@ -25,7 +26,9 @@ export class MongoQueryDbRepository implements IMongoQueryDbRepository {
 
   async canUpdateUser(name: string | undefined, email: string | undefined, userId: string): Promise<IQueryDbResponse> {
     const findNameOrEmail = await this.findNameOrEmail(name ?? '', email ?? '')
-    const user = await MongoClient.db.collection<Omit<UserType, 'id'>>('users').findOne({ _id: new ObjectId(userId) })
+    const user = await MongoClient.db
+      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
+      .findOne({ _id: new ObjectId(userId) })
 
     const nameOrEmailExists = findNameOrEmail.wasFound
     const userIdOfNameOrEmailExists = findNameOrEmail.selectedUser?.id

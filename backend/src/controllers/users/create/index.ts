@@ -22,8 +22,8 @@ export class CreateUserController implements ICreateUserController {
       if (userCreated.dbConsult.userFound) return badRequest<null>(null, userCreated.dbConsult.message)
       if (!userCreated.user) return internalServerError<null>(null, 'Unable to create user, try again')
       return created<UserType>(userCreated.user, 'The user was created')
-    } catch {
-      return internalServerError<null>(null, 'Something went wrong on the server side')
+    } catch (err) {
+      return internalServerError<null>(null, String(err))
     }
   }
 }

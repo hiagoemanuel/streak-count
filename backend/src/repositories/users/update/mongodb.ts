@@ -12,7 +12,7 @@ export class MongoUpdateUserRepository implements IUpdateUserRepository {
     if (canUpdateUser.wasFound || !canUpdateUser.selectedUser) throw canUpdateUser.message
     const defualtUser = canUpdateUser.selectedUser
 
-    await MongoClient.db.collection<Omit<UserType, 'id'>>('users').updateOne(
+    await MongoClient.db.collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '').updateOne(
       { _id: new ObjectId(params.id) },
       {
         $set: {
@@ -26,7 +26,7 @@ export class MongoUpdateUserRepository implements IUpdateUserRepository {
     )
 
     const user = await MongoClient.db
-      .collection<Omit<UserType, 'id'>>('users')
+      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
       .findOne({ _id: new ObjectId(params.id) })
 
     if (!user) throw 'Unable to find user'

@@ -15,7 +15,5 @@ export const MongoClient = {
 
     this.client = client
     this.db = client.db('streak-count')
-
-    console.log('mongodb connected')
   }
 }

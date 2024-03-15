@@ -6,7 +6,7 @@ import { ObjectId } from 'mongodb'
 export class MongoDeleteUserRepository implements IDeleteUserRepository {
   async deleteUser(params: { id: string }): Promise<UserType> {
     const userDeleted = await MongoClient.db
-      .collection<Omit<UserType, 'id'>>('users')
+      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
       .findOneAndDelete({ _id: new ObjectId(params.id) })
 
     if (!userDeleted) throw 'This user does not exists'
