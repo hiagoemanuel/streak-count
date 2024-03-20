@@ -28,7 +28,7 @@ export default function ConfigButton() {
     const htmlDOM = document.getElementsByTagName('html')[0]
     if (currentTheme === 'dark') {
       htmlDOM.classList.remove('dark')
-      setCookie(null, 'USER_THEME', 'light')
+      setCookie(null, 'USER_THEME', 'light', { maxAge: 30 * 24 * 60 * 60 }) // 30d
       setCurrentTheme('light')
     } else {
       htmlDOM.classList.add('dark')
