@@ -1,12 +1,18 @@
-import { UserType } from "../../schemas/user"
+import { StreakCountType } from '../../schemas/streakCount'
+import { UserType } from '../../schemas/user'
 
 export interface IMongoQueryDbRepository {
-  findNameOrEmail: (name: string, email: string) => Promise<IQueryDbResponse>
-  canUpdateUser: (name: string | undefined, email: string | undefined , userId: string) => Promise<IQueryDbResponse>
+  findNameOrEmail: (name: string, email: string) => Promise<IQueryDbResponse<UserType>>
+  canUpdateUser: (
+    name: string | undefined,
+    email: string | undefined,
+    userId: string
+  ) => Promise<IQueryDbResponse<UserType>>
+  canUpdateStreakCount: (name: string | undefined, id: string) => Promise<IQueryDbResponse<StreakCountType>>
 }
 
-export interface IQueryDbResponse {
+export interface IQueryDbResponse<D> {
   wasFound: boolean
   message: string
-  selectedUser?: UserType
+  dbReturn?: D
 }

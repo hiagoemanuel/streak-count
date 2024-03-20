@@ -16,7 +16,7 @@ export class MongoGetStreakCountsRepository implements IGetStrekCountsRepository
     }))
   }
 
-  async getOneStreakCount(params: { id: string }): Promise<StreakCountType> {
+  async getStreakCountById(params: { id: string }): Promise<StreakCountType> {
     const streakCount = await MongoClient.db
       .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
       .findOne({ 'streakCounts.id': params.id }, { projection: ['streakCounts'] })

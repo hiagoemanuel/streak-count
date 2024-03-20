@@ -9,8 +9,8 @@ export class MongoUpdateUserRepository implements IUpdateUserRepository {
   async updateUser(body: UpdateUserParamsType, params: { id: string }): Promise<UserType> {
     const canUpdateUser = await new MongoQueryDbRepository().canUpdateUser(body.name, body.email, params.id)
 
-    if (canUpdateUser.wasFound || !canUpdateUser.selectedUser) throw canUpdateUser.message
-    const defualtUser = canUpdateUser.selectedUser
+    if (canUpdateUser.wasFound || !canUpdateUser.dbReturn) throw canUpdateUser.message
+    const defualtUser = canUpdateUser.dbReturn
 
     await MongoClient.db.collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '').updateOne(
       { _id: new ObjectId(params.id) },

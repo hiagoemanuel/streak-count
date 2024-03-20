@@ -5,6 +5,8 @@ import { MongoCreateStreakCountRepository } from '../repositories/streak-counts/
 import { CreateStreakCountController } from '../controllers/streak-counts/create'
 import { MongoDeleteStreakCount } from '../repositories/streak-counts/delete/mongodb'
 import { DeleteStreakCountController } from '../controllers/streak-counts/delete'
+import { MongoUpadateStreakCountRepository } from '../repositories/streak-counts/update/mongodb'
+import { UpdateStreakCountController } from '../controllers/streak-counts/update'
 
 export const streakCounts = express.Router()
 
@@ -36,6 +38,14 @@ streakCounts.delete('/:id', async (req, res) => {
   const deleteStreakCountRepository = new MongoDeleteStreakCount()
   const deleteStreakCountController = new DeleteStreakCountController(deleteStreakCountRepository)
   const response = await deleteStreakCountController.handler({ params: req.params })
+
+  res.status(response.statusCode).send(response)
+})
+
+streakCounts.put('/:id', async (req, res) => {
+  const updateStreakCountRepository = new MongoUpadateStreakCountRepository()
+  const updateStreakCountController = new UpdateStreakCountController(updateStreakCountRepository)
+  const response = await updateStreakCountController.handler({ body: req.body, params: req.params })
 
   res.status(response.statusCode).send(response)
 })

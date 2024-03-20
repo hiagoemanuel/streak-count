@@ -8,5 +8,5 @@ export interface IUpdateStreakCountController {
 }
 
 export interface IUpdateStreakCountRepository {
-  updateStreakCount: (params: { id: string }) => Promise<StreakCountType>
+  updateStreakCount: (body: UpdateStreakCountParamsType, params: { id: string }) => Promise<StreakCountType>
 }

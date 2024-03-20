@@ -9,5 +9,5 @@ export interface IGetStrekCountsController {
 
 export interface IGetStrekCountsRepository {
   getStreakCounts: () => Promise<UserType[]>
-  getOneStreakCount: (params: { id: string }) => Promise<StreakCountType>
+  getStreakCountById: (params: { id: string }) => Promise<StreakCountType>
 }

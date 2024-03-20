@@ -18,7 +18,7 @@ export class GetStreakCountsController implements IGetStrekCountsController {
 
   async handlerOneStreakCount(req: HttpRequest<Params<{ id: string }>>): Promise<HttpResponse<StreakCountType>> {
     try {
-      const streakCount = await this.getStreakCountsRepository.getOneStreakCount(req.params)
+      const streakCount = await this.getStreakCountsRepository.getStreakCountById(req.params)
       return ok<StreakCountType>(streakCount, 'Streak Count was found')
     } catch (err) {
       return internalServerError<null>(null, String(err))

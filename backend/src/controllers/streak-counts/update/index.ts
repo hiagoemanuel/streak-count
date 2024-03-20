@@ -19,7 +19,7 @@ export class UpdateStreakCountController implements IUpdateStreakCountController
         return badRequest<null>(null, message)
       }
 
-      const streakCountUpdated = await this.updateStreakCountRepository.updateStreakCount(req.params)
+      const streakCountUpdated = await this.updateStreakCountRepository.updateStreakCount(req.body, req.params)
 
       return ok<StreakCountType>(streakCountUpdated, 'The streak count was updated')
     } catch (err) {
