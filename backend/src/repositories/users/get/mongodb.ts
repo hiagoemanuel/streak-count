@@ -27,4 +27,16 @@ export class MongoGetUsersRepository implements IGetUserRepository {
 
     return { id: _id.toHexString(), ...rest }
   }
+
+  async getByEmail(email: string): Promise<UserType | null> {
+    const user = await MongoClient.db
+      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
+      .findOne({ 'credentials.email': email })
+
+    if (!user) return null
+
+    const { _id, ...rest } = user
+
+    return { id: _id.toHexString(), ...rest }
+  }
 }

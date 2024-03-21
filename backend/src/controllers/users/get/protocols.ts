@@ -9,4 +9,5 @@ export interface IGetUserController {
 export interface IGetUserRepository {
   getUsers: () => Promise<UserType[]>
   getOneUser: (id: string) => Promise<UserType>
+  getByEmail: (email: string) => Promise<UserType | null>
 }
