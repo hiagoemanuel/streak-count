@@ -1,7 +1,6 @@
 import { IDeleteStreakCountRepository } from '../../../controllers/streak-counts/delete/protocols'
 import { MongoClient } from '../../../database/mongodb'
 import { StreakCountType } from '../../../schemas/streakCount'
-import { UserType } from '../../../schemas/user'
 
 export class MongoDeleteStreakCount implements IDeleteStreakCountRepository {
   async deleteStreakCount(params: { id: string }): Promise<StreakCountType> {

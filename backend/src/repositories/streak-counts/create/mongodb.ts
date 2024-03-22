@@ -5,7 +5,6 @@ import {
 } from '../../../controllers/streak-counts/create/protocols'
 import { MongoClient } from '../../../database/mongodb'
 import { StreakCountType } from '../../../schemas/streakCount'
-import { UserType } from '../../../schemas/user'
 
 export class MongoCreateStreakCountRepository implements ICreateStreakCountRepository {
   async createStreakCount(req: ICrateStreakCountParams): Promise<StreakCountType> {

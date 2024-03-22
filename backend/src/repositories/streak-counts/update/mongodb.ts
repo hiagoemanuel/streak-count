@@ -1,7 +1,6 @@
 import { IUpdateStreakCountRepository } from '../../../controllers/streak-counts/update/protocols'
 import { MongoClient } from '../../../database/mongodb'
 import { StreakCountType, UpdateStreakCountParamsType } from '../../../schemas/streakCount'
-import { UserType } from '../../../schemas/user'
 import { MongoQueryDbRepository } from '../../query-db/mongodb'
 
 export class MongoUpadateStreakCountRepository implements IUpdateStreakCountRepository {
@@ -13,7 +12,7 @@ export class MongoUpadateStreakCountRepository implements IUpdateStreakCountRepo
 
     const newId = dbReturn?.id.replace(dbReturn.name, body.name ?? dbReturn.name)
 
-    await MongoClient.db.collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '').updateOne(
+    await MongoClient.collection.updateOne(
       { 'streakCounts.id': params.id },
       {
         $set: {

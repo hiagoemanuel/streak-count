@@ -2,7 +2,6 @@ import { ObjectId } from 'mongodb'
 import { MongoClient } from '../../database/mongodb'
 import { UserType } from '../../schemas/user'
 import { IMongoQueryDbRepository, IQueryDbResponse } from './protocols'
-import process from 'process'
 import { StreakCountType } from '../../schemas/streakCount'
 
 export class MongoQueryDbRepository implements IMongoQueryDbRepository {

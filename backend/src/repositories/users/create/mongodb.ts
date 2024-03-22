@@ -30,7 +30,7 @@ export class MongoCreateUserRepository implements ICreateUserRepository {
       },
       streakCounts: []
     }
-    const { insertedId } = await MongoClient.db.collection('users').insertOne(userSchema)
+    const { insertedId } = await MongoClient.collection.insertOne(userSchema)
 
     const user = await MongoClient.collection.findOne({ _id: insertedId })
 

@@ -12,7 +12,7 @@ export class MongoUpdateUserRepository implements IUpdateUserRepository {
     if (canUpdateUser.wasFound || !canUpdateUser.dbReturn) throw canUpdateUser.message
     const defualtUser = canUpdateUser.dbReturn
 
-    await MongoClient.db.collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '').updateOne(
+    await MongoClient.collection.updateOne(
       { _id: new ObjectId(params.id) },
       {
         $set: {

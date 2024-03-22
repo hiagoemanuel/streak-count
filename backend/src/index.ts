@@ -1,4 +1,5 @@
 import express from 'express'
+import cors, { CorsOptions } from 'cors'
 import { config } from 'dotenv'
 import { MongoClient } from './database/mongodb'
 import { users } from './routes/users'
@@ -14,7 +15,14 @@ const main = async () => {
 
   await MongoClient.connect()
 
+  const corsOptions: CorsOptions = {
+    origin: 'https://streak-count.vercel.app/',
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+  }
+
+  app.use(cors(corsOptions))
   app.use(express.json())
+
   app.use('/', auth)
   app.use(authentication)
   app.use('/users', users)
