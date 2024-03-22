@@ -5,6 +5,7 @@ import { LoginController } from '../controllers/login'
 export const auth = express.Router()
 
 auth.post('/login', async (req, res) => {
+  console.log(req.body)
   const getUserRepository = new MongoGetUsersRepository()
   const loginController = new LoginController(getUserRepository)
   const { header, ...rest } = await loginController.handler({ body: req.body })
