@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: 'developed by <hiago emanuel>'
 }
 
-export default function RootLayout(props: {
+export default async function RootLayout(props: {
   children: React.ReactNode
   modal: React.ReactNode
 }) {
