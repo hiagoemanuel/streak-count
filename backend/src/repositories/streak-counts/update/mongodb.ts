@@ -24,9 +24,7 @@ export class MongoUpadateStreakCountRepository implements IUpdateStreakCountRepo
       }
     )
 
-    const streakCount = await MongoClient.db
-      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
-      .findOne({ 'streakCounts.id': newId })
+    const streakCount = await MongoClient.collection.findOne({ 'streakCounts.id': newId })
 
     if (!streakCount) throw 'Streak count was not found'
 

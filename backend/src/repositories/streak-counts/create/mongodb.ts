@@ -9,9 +9,10 @@ import { UserType } from '../../../schemas/user'
 
 export class MongoCreateStreakCountRepository implements ICreateStreakCountRepository {
   async createStreakCount(req: ICrateStreakCountParams): Promise<StreakCountType> {
-    const streakCountList = await MongoClient.db
-      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
-      .findOne({ _id: new ObjectId(req.userId) }, { projection: ['streakCounts'] })
+    const streakCountList = await MongoClient.collection.findOne(
+      { _id: new ObjectId(req.userId) },
+      { projection: ['streakCounts'] }
+    )
 
     if (!streakCountList) throw 'Streak count was not created'
 
@@ -28,9 +29,10 @@ export class MongoCreateStreakCountRepository implements ICreateStreakCountRepos
       count: 0
     }
 
-    const newStreakCount = await MongoClient.db
-      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
-      .findOneAndUpdate({ _id: new ObjectId(req.userId) }, { $push: { streakCounts: streakCountSchema } })
+    const newStreakCount = await MongoClient.collection.findOneAndUpdate(
+      { _id: new ObjectId(req.userId) },
+      { $push: { streakCounts: streakCountSchema } }
+    )
 
     if (!newStreakCount) throw 'Streak count was not created'
 

@@ -5,10 +5,7 @@ import { UserType } from '../../../schemas/user'
 
 export class MongoGetUsersRepository implements IGetUserRepository {
   async getUsers(): Promise<UserType[]> {
-    const users = await MongoClient.db
-      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
-      .find({})
-      .toArray()
+    const users = await MongoClient.collection.find({}).toArray()
 
     return users.map(({ _id, ...rest }) => ({
       id: _id.toHexString(),
@@ -17,9 +14,7 @@ export class MongoGetUsersRepository implements IGetUserRepository {
   }
 
   async getOneUser(id: string): Promise<UserType> {
-    const user = await MongoClient.db
-      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
-      .findOne({ _id: new ObjectId(id) })
+    const user = await MongoClient.collection.findOne({ _id: new ObjectId(id) })
 
     if (!user) throw 'User was not found, try again'
 
@@ -29,9 +24,7 @@ export class MongoGetUsersRepository implements IGetUserRepository {
   }
 
   async getByEmail(email: string): Promise<UserType | null> {
-    const user = await MongoClient.db
-      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
-      .findOne({ 'credentials.email': email })
+    const user = await MongoClient.collection.findOne({ 'credentials.email': email })
 
     if (!user) return null
 

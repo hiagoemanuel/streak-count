@@ -5,9 +5,10 @@ import { UserType } from '../../../schemas/user'
 
 export class MongoDeleteStreakCount implements IDeleteStreakCountRepository {
   async deleteStreakCount(params: { id: string }): Promise<StreakCountType> {
-    const user = await MongoClient.db
-      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
-      .findOneAndUpdate({ 'streakCounts.id': params.id }, { $pull: { streakCounts: { id: { $in: [params.id] } } } })
+    const user = await MongoClient.collection.findOneAndUpdate(
+      { 'streakCounts.id': params.id },
+      { $pull: { streakCounts: { id: { $in: [params.id] } } } }
+    )
 
     if (!user) throw 'This streak count id does not exist'
 

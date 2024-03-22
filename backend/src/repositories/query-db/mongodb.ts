@@ -7,9 +7,10 @@ import { StreakCountType } from '../../schemas/streakCount'
 
 export class MongoQueryDbRepository implements IMongoQueryDbRepository {
   async findNameOrEmail(name: string, email: string): Promise<IQueryDbResponse<UserType>> {
-    const user = await MongoClient.db
-      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
-      .findOne({ $or: [{ 'credentials.email': email }, { name }] }, { projection: ['name', 'credentials.email'] })
+    const user = await MongoClient.collection.findOne(
+      { $or: [{ 'credentials.email': email }, { name }] },
+      { projection: ['name', 'credentials.email'] }
+    )
 
     if (!user) return { wasFound: false, message: 'The user was not found' }
 
@@ -35,9 +36,7 @@ export class MongoQueryDbRepository implements IMongoQueryDbRepository {
     userId: string
   ): Promise<IQueryDbResponse<UserType>> {
     const findNameOrEmail = await this.findNameOrEmail(name ?? '', email ?? '')
-    const user = await MongoClient.db
-      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
-      .findOne({ _id: new ObjectId(userId) })
+    const user = await MongoClient.collection.findOne({ _id: new ObjectId(userId) })
 
     const nameOrEmailExists = findNameOrEmail.wasFound
     const userIdOfNameOrEmailExists = findNameOrEmail.dbReturn?.id
@@ -54,9 +53,7 @@ export class MongoQueryDbRepository implements IMongoQueryDbRepository {
   }
 
   async canUpdateStreakCount(name: string | undefined, id: string): Promise<IQueryDbResponse<StreakCountType>> {
-    const user = await MongoClient.db
-      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
-      .findOne({ 'streakCounts.id': id })
+    const user = await MongoClient.collection.findOne({ 'streakCounts.id': id })
 
     if (!user) return { wasFound: false, message: 'User not found' }
 

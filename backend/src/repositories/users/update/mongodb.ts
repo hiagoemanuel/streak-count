@@ -25,9 +25,7 @@ export class MongoUpdateUserRepository implements IUpdateUserRepository {
       }
     )
 
-    const user = await MongoClient.db
-      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
-      .findOne({ _id: new ObjectId(params.id) })
+    const user = await MongoClient.collection.findOne({ _id: new ObjectId(params.id) })
 
     if (!user) throw 'Unable to find user'
 

@@ -32,9 +32,7 @@ export class MongoCreateUserRepository implements ICreateUserRepository {
     }
     const { insertedId } = await MongoClient.db.collection('users').insertOne(userSchema)
 
-    const user = await MongoClient.db
-      .collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
-      .findOne({ _id: insertedId })
+    const user = await MongoClient.collection.findOne({ _id: insertedId })
 
     if (!user) throw new Error('The user was not created')
 
