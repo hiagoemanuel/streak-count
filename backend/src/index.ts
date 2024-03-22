@@ -7,10 +7,11 @@ import { streakCounts } from './routes/streak-counts'
 import { auth } from './routes/auth'
 import { authentication } from './middlewares/authentication'
 
+const app = express()
+
 const main = async () => {
   config()
 
-  const app = express()
   const port = process.env.PORT || 8080
 
   await MongoClient.connect()
@@ -34,3 +35,5 @@ const main = async () => {
 }
 
 main()
+
+export default app
