@@ -5,7 +5,7 @@ export const MongoClient = {
   client: undefined as unknown as Mongo,
   db: undefined as unknown as Db,
   collection: undefined as unknown as Collection<Omit<UserType, 'id'>>,
-  async connect(): Promise<void> {
+  async connect(isTest?: 'isTest'): Promise<void> {
     const URI = process.env.MONGODB_URI
 
     const client = new Mongo(URI ?? '', {
@@ -17,6 +17,12 @@ export const MongoClient = {
 
     this.client = client
     this.db = client.db('streak-count')
-    this.collection = this.db.collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
+
+    if (isTest === 'isTest') {
+      this.collection = this.db.collection<Omit<UserType, 'id'>>('test')
+    } else {
+      this.collection = this.db.collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
+    }
+
   }
 }
