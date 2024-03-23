@@ -1,3 +1,4 @@
+import { api } from '@/lib/axios'
 import Link from 'next/link'
 
 const streakListTest = [
@@ -10,7 +11,11 @@ const streakListTest = [
   { title: 'faweqweqwe', counter: 7 }
 ]
 
-export default function Home() {
+export default async function Home() {
+  const user = await api.get('/users/65fb6ffc454aa43562e5bc8d')
+
+  const streaks = user.data.body.streakCounts
+
   return (
     <div className="w-10/12 self-center xl:w-216">
       <header className="w-full flex justify-between">
@@ -27,14 +32,14 @@ export default function Home() {
         </Link>
       </header>
       <div className="h-48 overflow-y-scroll flex flex-col gap-1 scrollbar">
-        {streakListTest.map((streak) => (
+        {streaks.map((streak) => (
           <Link
             className="flex justify-between p-3 border-b-2 border-solid border-light-200 dark:border-dark-200 last:border-[transparent]"
-            href={streak.title}
-            key={streak.title}
+            href={streak.name}
+            key={streak.name}
           >
-            <h1 className="text-xl sm:text-4xl">{streak.title}</h1>
-            <h1 className="text-xl sm:text-4xl">{streak.counter}</h1>
+            <h1 className="text-xl sm:text-4xl">{streak.name}</h1>
+            <h1 className="text-xl sm:text-4xl">{streak.count}</h1>
           </Link>
         ))}
       </div>
