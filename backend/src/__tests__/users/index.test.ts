@@ -1,10 +1,12 @@
 import { HttpStatus } from '../../controllers/protocols'
 import { CreateUserController } from '../../controllers/users/create'
 import { DeleteUserController } from '../../controllers/users/delete'
+import { GetUsersController } from '../../controllers/users/get'
 import { UpdateUserController } from '../../controllers/users/update'
 import { MongoClient } from '../../database/mongodb'
 import { MongoCreateUserRepository } from '../../repositories/users/create/mongodb'
 import { MongoDeleteUserRepository } from '../../repositories/users/delete/mongodb'
+import { MongoGetUsersRepository } from '../../repositories/users/get/mongodb'
 import { MongoUpdateUserRepository } from '../../repositories/users/update/mongodb'
 import { CreateUserParamsType, UpdateUserParamsType } from '../../schemas/user'
 
@@ -13,6 +15,14 @@ describe('User', () => {
   afterAll(async () => {
     await MongoClient.collection.drop()
     await MongoClient.client.close()
+  })
+
+  it('should get a user', async () => {
+    const getUserRepository = new MongoGetUsersRepository()
+    const getUserController = new GetUsersController(getUserRepository)
+    const response = await getUserController.handler()
+
+    expect(response.statusCode).toBe(HttpStatus.OK)
   })
 
   it('should create a user', async () => {
