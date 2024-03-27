@@ -3,10 +3,7 @@ import Link from 'next/link'
 export default function Login() {
   return (
     <div className="h-full flex justify-center items-center">
-      <form
-        className="w-80 py-12 px-7 rounded-3xl bg-light-200 dark:bg-dark-200"
-        action="/"
-      >
+      <form className="w-80 py-12 px-7 rounded-3xl bg-light-200 dark:bg-dark-200" action="/">
         <div className="text-center mb-1">
           <h1 className="mb-1">Login</h1>
           <div>

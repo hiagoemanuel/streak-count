@@ -6,7 +6,7 @@ export default function DeleteStreak() {
       title="Do you want to delete your progress?"
       inputs={{
         submit: { value: 'Yes', color: 'red' },
-        refuse: { value: 'No', color: 'orange' }
+        refuse: { value: 'No', color: 'orange' },
       }}
     />
   )

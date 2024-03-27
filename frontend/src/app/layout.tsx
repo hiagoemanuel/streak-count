@@ -11,13 +11,10 @@ const aldrich = Aldrich({ weight: ['400'], subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Streak Count',
-  description: 'developed by <hiago emanuel>'
+  description: 'developed by <hiago emanuel>',
 }
 
-export default function RootLayout(props: {
-  children: React.ReactNode
-  modal: React.ReactNode
-}) {
+export default function RootLayout(props: { children: React.ReactNode; modal: React.ReactNode }) {
   const themeCookie = cookies().get('USER_THEME')
 
   return (

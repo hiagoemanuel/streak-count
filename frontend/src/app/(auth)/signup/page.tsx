@@ -3,10 +3,7 @@ import Link from 'next/link'
 export default function Signup() {
   return (
     <div className="h-full flex justify-center items-center">
-      <form
-        className="w-80 py-12 px-7 rounded-3xl bg-light-200 dark:bg-dark-200"
-        action="/"
-      >
+      <form className="w-80 py-12 px-7 rounded-3xl bg-light-200 dark:bg-dark-200" action="/">
         <div className="text-center mb-1">
           <h1>Sign Up</h1>
           <div>
@@ -39,10 +36,7 @@ export default function Signup() {
               />
               <span className="cursor-pointer">dont&#39;t forget me</span>
             </label>
-            <Link
-              className="text-orange text-xs hover:underline cursor-pointer"
-              href="/login"
-            >
+            <Link className="text-orange text-xs hover:underline cursor-pointer" href="/login">
               I have an account!
             </Link>
           </div>

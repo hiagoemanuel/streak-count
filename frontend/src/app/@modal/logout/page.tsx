@@ -6,7 +6,7 @@ export default function Logout() {
       title="Do you want to log out of your account?"
       inputs={{
         submit: { value: 'Yes' },
-        refuse: { value: 'No' }
+        refuse: { value: 'No' },
       }}
     />
   )

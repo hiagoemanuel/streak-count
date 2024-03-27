@@ -12,9 +12,7 @@ export default function Modal({ children, title, inputs }: ModalProps) {
         className="w-216 p-5 rounded-2xl m-1 flex flex-col items-center gap-7 bg-light-200 dark:bg-dark-200 sm:m-7"
         action="/"
       >
-        <h1 className="text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-          {title}
-        </h1>
+        <h1 className="text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl">{title}</h1>
         <div className="w-full flex gap-7 flex-wrap justify-center">
           {children}
           <input
@@ -24,7 +22,9 @@ export default function Modal({ children, title, inputs }: ModalProps) {
           />
           <div
             className={`${inputs.refuse.color === 'orange' ? 'bg-orange' : 'bg-error'} py-2 px-5 rounded-lg cursor-pointer`}
-            onClick={() => router.back()}
+            onClick={() => {
+              router.back()
+            }}
           >
             {inputs.refuse.value}
           </div>

@@ -41,7 +41,9 @@ export default function ConfigButton() {
     <div className="w-20 h-20 rounded-full z-10 relative bg-light-200 dark:bg-dark-200">
       <button
         className="rounded-full w-full h-full flex justify-center items-center relative overflow-hidden bg-[inherit]"
-        onClick={() => setHandlerConfig((p) => !p)}
+        onClick={() => {
+          setHandlerConfig((p) => !p)
+        }}
       >
         <Gear
           className={`${handlerConfigs ? '-rotate-180' : ''} transition-transform duration-700`}
