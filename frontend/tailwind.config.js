@@ -6,24 +6,24 @@ module.exports = {
     colors: {
       dark: {
         100: '#1E1E1E',
-        200: '#151515'
+        200: '#151515',
       },
       light: {
         100: '#F3F3F3',
-        200: '#C2C2C2'
+        200: '#C2C2C2',
       },
       orange: '#FC6011',
-      error: '#FF4141'
+      error: '#FF4141',
     },
     extend: {
       width: {
         100: '25rem',
-        216: '54rem'
+        216: '54rem',
       },
       screens: {
-        xs: '360px'
-      }
-    }
+        xs: '360px',
+      },
+    },
   },
-  plugins: []
+  plugins: [],
 }

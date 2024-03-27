@@ -15,11 +15,7 @@ export default function Footer() {
       </div>
       <h4 className="order-1 mx-auto text-[.875rem] xs:text-lg min-[509px]:order-none">
         developed by{' '}
-        <Link
-          className="text-orange"
-          href="https://github.com/hiagoemanuel"
-          target="_blanck"
-        >
+        <Link className="text-orange" href="https://github.com/hiagoemanuel" target="_blanck">
           {'<'}hiago emanuel{'>'}
         </Link>
       </h4>

@@ -6,7 +6,7 @@ export default function ResetStreak() {
       title="Do you want to reset your streak?"
       inputs={{
         submit: { value: 'Yes' },
-        refuse: { value: 'No' }
+        refuse: { value: 'No' },
       }}
     />
   )
