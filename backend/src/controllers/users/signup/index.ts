@@ -1,12 +1,15 @@
-import { CreateUserParams, type CreateUserParamsType, type UserType } from '../../../schemas/user'
-import { badRequest, created, internalServerError } from '../../helpers'
-import { type Body, type HttpRequest, type HttpResponse } from '../../protocols'
-import { type ICreateUserController, type ICreateUserRepository } from './protocols'
+import { sign } from 'jsonwebtoken'
+import { CreateUserParams, type CreateUserParamsType, type UserType } from '../../schemas/user'
+import { badRequest, created, internalServerError } from '../helpers'
+import { type Body, type HttpRequest, type HttpResponse } from '../protocols'
+import { type ISignupController, type ICreateUserRepository } from './protocols'
 
-export class CreateUserController implements ICreateUserController {
+export class SignupController implements ISignupController {
   constructor(private readonly createUserRepository: ICreateUserRepository) {}
 
-  async handler(req: HttpRequest<Body<CreateUserParamsType>>): Promise<HttpResponse<UserType>> {
+  async handler(
+    req: HttpRequest<Body<CreateUserParamsType>>,
+  ): Promise<HttpResponse<UserType, { 'auth-token': string }>> {
     try {
       const fieldsRequired = CreateUserParams.safeParse(req.body)
 
@@ -23,7 +26,12 @@ export class CreateUserController implements ICreateUserController {
         return badRequest<null>(null, userCreated.dbConsult.message)
       if (!userCreated.user)
         return internalServerError<null>(null, 'Unable to create user, try again')
-      return created<UserType>(userCreated.user, 'The user was created')
+
+      const token = sign(userCreated.user, process.env.JWT_KEY ?? '')
+
+      return created<UserType, { 'auth-token': string }>(userCreated.user, 'The user was created', {
+        'auth-token': token,
+      })
     } catch (err) {
       return internalServerError<null>(null, String(err))
     }

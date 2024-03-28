@@ -1,8 +1,10 @@
 import { type CreateUserParamsType, type UserType } from '../../../schemas/user'
 import { type Body, type HttpRequest, type HttpResponse } from '../../protocols'
 
-export interface ICreateUserController {
-  handler: (req: HttpRequest<Body<CreateUserParamsType>>) => Promise<HttpResponse<UserType>>
+export interface ISignupController {
+  handler: (
+    req: HttpRequest<Body<CreateUserParamsType>>,
+  ) => Promise<HttpResponse<UserType, { 'auth-token': string }>>
 }
 
 export interface ICreateUserRepository {

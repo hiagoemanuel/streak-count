@@ -1,5 +1,5 @@
-import { type UserType } from '../../schemas/user'
-import { type Body, type HttpRequest, type HttpResponse } from '../protocols'
+import { type UserType } from '../../../schemas/user'
+import { type Body, type HttpRequest, type HttpResponse } from '../../protocols'
 
 export interface ILoginController {
   handler: (

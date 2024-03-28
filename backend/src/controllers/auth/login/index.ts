@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { UserSchema, type UserType } from '../../schemas/user'
-import { badRequest, internalServerError, ok } from '../helpers'
-import { type HttpRequest, type Body, type HttpResponse } from '../protocols'
-import { type IGetUserRepository } from '../users/get/protocols'
+import { UserSchema, type UserType } from '../../../schemas/user'
+import { badRequest, internalServerError, ok } from '../../helpers'
+import { type HttpRequest, type Body, type HttpResponse } from '../../protocols'
+import { type IGetUserRepository } from '../../users/get/protocols'
 import { type ILoginController, type LoginParams } from './protocols'
 
 export class LoginController implements ILoginController {

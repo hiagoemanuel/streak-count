@@ -1,8 +1,6 @@
 import express from 'express'
 import { MongoGetUsersRepository } from '../repositories/users/get/mongodb'
 import { GetUsersController } from '../controllers/users/get'
-import { MongoCreateUserRepository } from '../repositories/users/create/mongodb'
-import { CreateUserController } from '../controllers/users/create'
 import { MongoDeleteUserRepository } from '../repositories/users/delete/mongodb'
 import { DeleteUserController } from '../controllers/users/delete'
 import { MongoUpdateUserRepository } from '../repositories/users/update/mongodb'
@@ -22,14 +20,6 @@ users.get('/:token', async (req, res) => {
   const getUserRepository = new MongoGetUsersRepository()
   const getUserController = new GetUsersController(getUserRepository)
   const response = await getUserController.handlerOneUser({ params: req.params })
-
-  res.status(response.statusCode).send(response)
-})
-
-users.post('/', async (req, res) => {
-  const createUserRepository = new MongoCreateUserRepository()
-  const createUserController = new CreateUserController(createUserRepository)
-  const response = await createUserController.handler({ body: req.body })
 
   res.status(response.statusCode).send(response)
 })

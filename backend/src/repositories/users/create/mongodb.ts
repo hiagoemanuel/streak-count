@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import {
   type ICreateUser,
   type ICreateUserRepository,
-} from '../../../controllers/users/create/protocols'
+} from '../../../controllers/auth/signup/protocols'
 import { MongoClient } from '../../../database/mongodb'
 import { type CreateUserParamsType, type UserType } from '../../../schemas/user'
 import { MongoQueryDbRepository } from '../../query-db/mongodb'

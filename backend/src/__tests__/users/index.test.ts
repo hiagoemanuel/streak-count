@@ -1,5 +1,5 @@
 import { HttpStatus } from '../../controllers/protocols'
-import { CreateUserController } from '../../controllers/users/create'
+import { SignupController } from '../../controllers/signup'
 import { DeleteUserController } from '../../controllers/users/delete'
 import { GetUsersController } from '../../controllers/users/get'
 import { UpdateUserController } from '../../controllers/users/update'
@@ -35,7 +35,7 @@ describe('User', () => {
     }
 
     const createUserRepository = new MongoCreateUserRepository()
-    const createUserController = new CreateUserController(createUserRepository)
+    const createUserController = new SignupController(createUserRepository)
     const response = await createUserController.handler({ body: createUserParams })
 
     expect(response.statusCode).toBe(HttpStatus.CREATED)
@@ -56,7 +56,7 @@ describe('User', () => {
     }
 
     const createUserRepository = new MongoCreateUserRepository()
-    const createUserController = new CreateUserController(createUserRepository)
+    const createUserController = new SignupController(createUserRepository)
     const userCreated = await createUserController.handler({ body: createUserParams })
 
     const updateUserRepository = new MongoUpdateUserRepository()
@@ -78,7 +78,7 @@ describe('User', () => {
     }
 
     const createUserRepository = new MongoCreateUserRepository()
-    const createUserController = new CreateUserController(createUserRepository)
+    const createUserController = new SignupController(createUserRepository)
     const userCreated = await createUserController.handler({ body: createUserParams })
 
     const deleteUserRepository = new MongoDeleteUserRepository()
