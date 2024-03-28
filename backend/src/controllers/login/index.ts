@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { UserSchema, type UserType } from '../../schemas/user'
-import { badRequest, internalServerError, ok, unauthorized } from '../helpers'
+import { badRequest, internalServerError, ok } from '../helpers'
 import { type HttpRequest, type Body, type HttpResponse } from '../protocols'
 import { type IGetUserRepository } from '../users/get/protocols'
 import { type ILoginController, type LoginParams } from './protocols'
@@ -23,10 +23,10 @@ export class LoginController implements ILoginController {
       }
 
       const user = await this.getUserRepository.getByEmail(req.body.email)
-      if (!user) return unauthorized<null>(null, 'Incorrect email')
+      if (!user) return badRequest<null>(null, 'Incorrect email')
 
       const passwordValid = bcrypt.compareSync(req.body.password, user.credentials.password)
-      if (!passwordValid) return unauthorized<null>(null, 'Incorrect password')
+      if (!passwordValid) return badRequest<null>(null, 'Incorrect password')
 
       const token = jwt.sign(user, process.env.JWT_KEY ?? '')
 

@@ -1,7 +1,6 @@
 'use client'
 
 import { AuthContext } from '@/contexts/AuthContext'
-import { AxiosError } from 'axios'
 import Link from 'next/link'
 import { type FormEvent, createRef, useState, useContext } from 'react'
 
@@ -18,11 +17,11 @@ export default function Login() {
     const formData = new FormData(formRef.current ?? undefined)
     const email = formData.get('email') as string
     const password = formData.get('password') as string
+    const dontForget = formData.get('forget-me') as string
 
     try {
-      await login({ email, password })
+      await login({ email, password, dontForget })
     } catch (err) {
-      if (!(err instanceof AxiosError)) return
       setFormErr({ wasErr: true, msg: 'incorrect email or password' })
     }
   }

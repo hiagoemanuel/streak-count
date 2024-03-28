@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout(props: { children: React.ReactNode; modal: React.ReactNode }) {
-  const themeCookie = cookies().get('USER_THEME')
+  const themeCookie = cookies().get('streak-count.theme')
 
   return (
     <html

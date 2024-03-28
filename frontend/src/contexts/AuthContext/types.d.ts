@@ -17,6 +17,7 @@ export interface IUser {
 export interface ILogIn {
   email: string
   password: string
+  dontForget: string
 }
 
 export interface IHttpResponse<B, H = undefined> {

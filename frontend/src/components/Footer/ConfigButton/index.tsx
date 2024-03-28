@@ -16,8 +16,8 @@ export default function ConfigButton() {
   const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>()
 
   useEffect(() => {
-    const { USER_THEME } = parseCookies()
-    if (USER_THEME === 'dark') {
+    const { 'streak-count.theme': theme } = parseCookies()
+    if (theme === 'dark') {
       setCurrentTheme('dark')
     } else {
       setCurrentTheme('light')
@@ -28,11 +28,11 @@ export default function ConfigButton() {
     const htmlDOM = document.getElementsByTagName('html')[0]
     if (currentTheme === 'dark') {
       htmlDOM.classList.remove('dark')
-      setCookie(null, 'USER_THEME', 'light', { path: '/', maxAge: 30 * 24 * 60 * 60 }) // 30d
+      setCookie(undefined, 'streak-count.theme', 'light', { maxAge: 30 * 24 * 60 * 60 }) // 30d
       setCurrentTheme('light')
     } else {
       htmlDOM.classList.add('dark')
-      setCookie(null, 'USER_THEME', 'dark')
+      setCookie(null, 'streak-count.theme', 'dark', { maxAge: 30 * 24 * 60 * 60 })
       setCurrentTheme('dark')
     }
   }

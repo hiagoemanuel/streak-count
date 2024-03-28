@@ -21,7 +21,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const res: AxiosResponse<IHttpResponse<IUser>> = await api.get(`/users/${token}`, {
           headers: { 'auth-token': token },
         })
-        console.log(res.data.body)
         setUser(res.data.body)
       }
       fetch()
@@ -30,16 +29,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const isAuthenticated = !!user
 
-  const login = async ({ email, password }: ILogIn) => {
-    const res: AxiosResponse<IHttpResponse<IUser>> = await api.post('/login', {
+  const login = async ({ email, password, dontForget }: ILogIn) => {
+    const { data, headers }: AxiosResponse<IHttpResponse<IUser>> = await api.post('/login', {
       email,
       password,
     })
-    const token: string = res.headers['auth-token']
 
-    setCookie(undefined, 'streak-count.token', token, { maxAge: 60 * 60 * 24 * 30 }) // 30d
+    if (data.statusCode === 400) throw data.message
 
-    setUser(res.data.body)
+    const token: string = headers['auth-token']
+
+    if (dontForget === 'on') {
+      setCookie(undefined, 'streak-count.token', token, { maxAge: 60 * 60 * 24 * 30 }) // 30d
+    } else {
+      setCookie(undefined, 'streak-count.token', token, { maxAge: 60 * 60 * 24 }) // 01d
+    }
+
+    setUser(data.body)
 
     router.push('/')
   }
