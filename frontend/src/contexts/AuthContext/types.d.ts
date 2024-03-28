@@ -14,7 +14,14 @@ export interface IUser {
   }>
 }
 
-export interface ILogIn {
+export interface ILogin {
+  email: string
+  password: string
+  dontForget: string
+}
+
+export interface ISignup {
+  name: string
   email: string
   password: string
   dontForget: string
@@ -31,5 +38,6 @@ export interface IHttpResponse<B, H = undefined> {
 export interface IAuthContext {
   isAuthenticated: boolean
   user: IUser | null
-  login: (credentials: ILogIn) => Promise<void>
+  login: (credentials: ILogin) => Promise<void>
+  signup: (credentials: ISignup) => Promise<void>
 }

@@ -1,5 +1,5 @@
 import { HttpStatus } from '../../controllers/protocols'
-import { SignupController } from '../../controllers/signup'
+import { SignupController } from '../../controllers/auth/signup'
 import { DeleteUserController } from '../../controllers/users/delete'
 import { GetUsersController } from '../../controllers/users/get'
 import { UpdateUserController } from '../../controllers/users/update'

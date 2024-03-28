@@ -4,7 +4,7 @@ import { api } from '@/lib/axios'
 import { type AxiosResponse } from 'axios'
 import { parseCookies, setCookie } from 'nookies'
 import { createContext, useState, type ReactNode, useEffect } from 'react'
-import type { IAuthContext, IHttpResponse, ILogIn, IUser } from './types'
+import type { IAuthContext, IHttpResponse, ILogin, ISignup, IUser } from './types'
 import { useRouter } from 'next/navigation'
 
 export const AuthContext = createContext({} as IAuthContext)
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const isAuthenticated = !!user
 
-  const login = async ({ email, password, dontForget }: ILogIn) => {
+  const login = async ({ email, password, dontForget }: ILogin) => {
     const { data, headers }: AxiosResponse<IHttpResponse<IUser>> = await api.post('/login', {
       email,
       password,
@@ -49,7 +49,35 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     router.push('/')
   }
+
+  const signup = async ({ name, email, password, dontForget }: ISignup) => {
+    const { data, headers }: AxiosResponse<IHttpResponse<IUser>> = await api.post('/signup', {
+      name,
+      email,
+      password,
+    })
+
+    console.log(data, headers)
+
+    if (!(data.statusCode === 201)) throw data.message
+
+    const token: string = headers['auth-token']
+
+    if (dontForget === 'on') {
+      console.log('on')
+      setCookie(undefined, 'streak-count.token', token, { maxAge: 60 * 60 * 24 * 30 }) // 30d
+    } else {
+      console.log('off')
+      setCookie(undefined, 'streak-count.token', token, { maxAge: 60 * 60 * 24 }) // 01d
+    }
+
+    setUser(data.body)
+
+    router.push('/')
+  }
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ isAuthenticated, user, login, signup }}>
+      {children}
+    </AuthContext.Provider>
   )
 }
