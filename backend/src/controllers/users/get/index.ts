@@ -21,9 +21,7 @@ export class GetUsersController implements IGetUserController {
   ): Promise<HttpResponse<UserType>> {
     try {
       const userByToken = decode(req.params.token) as UserType | null
-      console.log(userByToken)
       if (!userByToken) return badRequest<null>(null, 'This token is invalid')
-
       const user = await this.getUserRepository.getOneUser(userByToken.id)
       if (!user) return notFound<null>(null, 'User was not found')
       return ok<UserType>(user, 'User was found')

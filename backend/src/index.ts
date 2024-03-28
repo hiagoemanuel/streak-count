@@ -19,6 +19,7 @@ const main = async () => {
   const corsOptions: CorsOptions = {
     origin: process.env.DEV_ENV === 'true' ? '*' : 'https://streak-count.vercel.app/',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    exposedHeaders: '*',
   }
 
   app.use(cors(corsOptions))
