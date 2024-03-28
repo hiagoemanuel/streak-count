@@ -32,7 +32,7 @@ export default function ConfigButton() {
       setCurrentTheme('light')
     } else {
       htmlDOM.classList.add('dark')
-      setCookie(null, 'streak-count.theme', 'dark', { maxAge: 30 * 24 * 60 * 60 })
+      setCookie(null, 'streak-count.theme', 'dark', { maxAge: 30 * 24 * 60 * 60 }) // 30d
       setCurrentTheme('dark')
     }
   }

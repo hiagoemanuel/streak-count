@@ -17,7 +17,7 @@ const main = async () => {
   await MongoClient.connect()
 
   const corsOptions: CorsOptions = {
-    origin: process.env.DEV_ENV === 'true' ? '*' : 'https://streak-count.vercel.app/',
+    origin: process.env.DEV_ENV === 'true' ? '*' : process.env.PROD_ORIGIN_ALLOWED,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     exposedHeaders: '*',
   }
