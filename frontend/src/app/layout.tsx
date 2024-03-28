@@ -6,6 +6,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 import './global.css'
+import { AuthProvider } from '@/contexts/AuthContext'
 
 const aldrich = Aldrich({ weight: ['400'], subsets: ['latin'] })
 
@@ -23,12 +24,14 @@ export default function RootLayout(props: { children: React.ReactNode; modal: Re
       lang="en"
     >
       <body className={aldrich.className}>
-        <main className="h-svh p-7 flex flex-col justify-between">
-          <Header />
-          {props.children}
-          <Footer />
-        </main>
-        {props.modal}
+        <AuthProvider>
+          <main className="h-svh p-7 flex flex-col justify-between">
+            <Header />
+            {props.children}
+            <Footer />
+          </main>
+          {props.modal}
+        </AuthProvider>
       </body>
     </html>
   )

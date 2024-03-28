@@ -1,14 +1,46 @@
+'use client'
+
+import { AuthContext } from '@/contexts/AuthContext'
+import { AxiosError } from 'axios'
 import Link from 'next/link'
+import { type FormEvent, createRef, useState, useContext } from 'react'
 
 export default function Login() {
+  const formRef = createRef<HTMLFormElement>()
+  const [formErr, setFormErr] = useState<{ wasErr: boolean; msg: string }>({
+    wasErr: false,
+    msg: '',
+  })
+  const { login } = useContext(AuthContext)
+
+  const handlerLogin = async (e: FormEvent) => {
+    e.preventDefault()
+    const formData = new FormData(formRef.current ?? undefined)
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+
+    try {
+      await login({ email, password })
+    } catch (err) {
+      if (!(err instanceof AxiosError)) return
+      setFormErr({ wasErr: true, msg: 'incorrect email or password' })
+    }
+  }
+
   return (
     <div className="h-full flex justify-center items-center">
-      <form className="w-80 py-12 px-7 rounded-3xl bg-light-200 dark:bg-dark-200" action="/">
+      <form
+        className="w-80 py-12 px-7 rounded-3xl bg-light-200 dark:bg-dark-200"
+        method="POST"
+        onSubmit={handlerLogin}
+        ref={formRef}
+      >
         <div className="text-center mb-1">
           <h1 className="mb-1">Login</h1>
           <div>
-            <p className="text-xs text-error">incorrect email or password,</p>
-            <p className="text-xs text-error">try again</p>
+            <p className={`${formErr.wasErr ? 'visible' : 'invisible'} text-xs text-error`}>
+              {formErr.msg}, <br /> try again
+            </p>
           </div>
         </div>
         <div className="mb-6 flex flex-col gap-5">
