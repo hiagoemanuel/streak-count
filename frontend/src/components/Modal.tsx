@@ -8,10 +8,7 @@ export default function Modal({ children, title, inputs }: ModalProps) {
 
   return (
     <div className="w-svw h-svh flex justify-center items-center absolute top-0 left-0 z-40 bg-[#00000010]">
-      <form
-        className="w-216 p-5 rounded-2xl m-1 flex flex-col items-center gap-7 bg-light-200 dark:bg-dark-200 sm:m-7"
-        action="/"
-      >
+      <div className="w-216 p-5 rounded-2xl m-1 flex flex-col items-center gap-7 bg-light-200 dark:bg-dark-200 sm:m-7">
         <h1 className="text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl">{title}</h1>
         <div className="w-full flex gap-7 flex-wrap justify-center">
           {children}
@@ -19,6 +16,7 @@ export default function Modal({ children, title, inputs }: ModalProps) {
             className={`${inputs.submit.color === 'red' ? 'bg-error' : 'bg-orange'} py-2 px-5 rounded-lg cursor-pointer`}
             type="submit"
             value={inputs.submit.value}
+            onClick={inputs.submit.event}
           />
           <div
             className={`${inputs.refuse.color === 'orange' ? 'bg-orange' : 'bg-error'} py-2 px-5 rounded-lg cursor-pointer`}
@@ -29,7 +27,7 @@ export default function Modal({ children, title, inputs }: ModalProps) {
             {inputs.refuse.value}
           </div>
         </div>
-      </form>
+      </div>
     </div>
   )
 }

@@ -57,17 +57,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       password,
     })
 
-    console.log(data, headers)
-
     if (!(data.statusCode === 201)) throw data.message
 
     const token: string = headers['auth-token']
 
     if (dontForget === 'on') {
-      console.log('on')
       setCookie(undefined, 'streak-count.token', token, { maxAge: 60 * 60 * 24 * 30 }) // 30d
     } else {
-      console.log('off')
       setCookie(undefined, 'streak-count.token', token, { maxAge: 60 * 60 * 24 }) // 01d
     }
 

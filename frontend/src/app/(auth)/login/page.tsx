@@ -19,8 +19,6 @@ export default function Login() {
     const password = formData.get('password') as string
     const dontForget = formData.get('forget-me') as string
 
-    console.log(email, password, dontForget)
-
     try {
       await login({ email, password, dontForget })
     } catch (err) {

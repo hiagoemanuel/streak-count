@@ -23,7 +23,6 @@ export default function Signup() {
     try {
       await signup({ name, email, password, dontForget })
     } catch (err) {
-      console.log(err)
       setFormErr({ wasErr: true, msg: 'this email or name is already in use' })
     }
   }
