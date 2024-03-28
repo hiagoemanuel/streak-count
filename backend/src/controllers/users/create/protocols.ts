@@ -1,5 +1,5 @@
-import { CreateUserParamsType, UserType } from '../../../schemas/user'
-import { Body, HttpRequest, HttpResponse } from '../../protocols'
+import { type CreateUserParamsType, type UserType } from '../../../schemas/user'
+import { type Body, type HttpRequest, type HttpResponse } from '../../protocols'
 
 export interface ICreateUserController {
   handler: (req: HttpRequest<Body<CreateUserParamsType>>) => Promise<HttpResponse<UserType>>

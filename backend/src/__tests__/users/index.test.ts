@@ -8,10 +8,12 @@ import { MongoCreateUserRepository } from '../../repositories/users/create/mongo
 import { MongoDeleteUserRepository } from '../../repositories/users/delete/mongodb'
 import { MongoGetUsersRepository } from '../../repositories/users/get/mongodb'
 import { MongoUpdateUserRepository } from '../../repositories/users/update/mongodb'
-import { CreateUserParamsType, UpdateUserParamsType } from '../../schemas/user'
+import { type CreateUserParamsType, type UpdateUserParamsType } from '../../schemas/user'
 
 describe('User', () => {
-  beforeAll(async () => await MongoClient.connect('isTest'))
+  beforeAll(async () => {
+    await MongoClient.connect('isTest')
+  })
   afterAll(async () => {
     await MongoClient.collection.drop()
     await MongoClient.client.close()
@@ -29,7 +31,7 @@ describe('User', () => {
     const createUserParams: CreateUserParamsType = {
       name: 'create user',
       email: 'createuser@email.com',
-      password: 'createuser123'
+      password: 'createuser123',
     }
 
     const createUserRepository = new MongoCreateUserRepository()
@@ -44,13 +46,13 @@ describe('User', () => {
     const createUserParams: CreateUserParamsType = {
       name: 'update user',
       email: 'updateuser@email.com',
-      password: 'updateuser123'
+      password: 'updateuser123',
     }
 
     const updateUserParams: UpdateUserParamsType = {
       name: 'updated',
       email: 'updated@email.com',
-      password: 'updated123'
+      password: 'updated123',
     }
 
     const createUserRepository = new MongoCreateUserRepository()
@@ -61,7 +63,7 @@ describe('User', () => {
     const updateUserController = new UpdateUserController(updateUserRepository)
     const response = await updateUserController.handler({
       body: updateUserParams,
-      params: { id: userCreated.body?.id ?? '' }
+      params: { id: userCreated.body?.id ?? '' },
     })
 
     expect(response.statusCode).toBe(HttpStatus.OK)
@@ -72,7 +74,7 @@ describe('User', () => {
     const createUserParams: CreateUserParamsType = {
       name: 'delete',
       email: 'delete@email.com',
-      password: 'delete123'
+      password: 'delete123',
     }
 
     const createUserRepository = new MongoCreateUserRepository()
@@ -81,7 +83,9 @@ describe('User', () => {
 
     const deleteUserRepository = new MongoDeleteUserRepository()
     const deleteUserController = new DeleteUserController(deleteUserRepository)
-    const response = await deleteUserController.handler({ params: { id: userCreated.body?.id ?? ''} })
+    const response = await deleteUserController.handler({
+      params: { id: userCreated.body?.id ?? '' },
+    })
 
     expect(response.statusCode).toBe(HttpStatus.OK)
     expect(response.body?.name).toEqual('delete')

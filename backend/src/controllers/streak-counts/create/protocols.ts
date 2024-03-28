@@ -1,8 +1,10 @@
-import { StreakCountType } from '../../../schemas/streakCount'
-import { Body, HttpRequest, HttpResponse } from '../../protocols'
+import { type StreakCountType } from '../../../schemas/streakCount'
+import { type Body, type HttpRequest, type HttpResponse } from '../../protocols'
 
 export interface ICreateStreakCountController {
-  handler: (req: HttpRequest<Body<ICrateStreakCountParams>>) => Promise<HttpResponse<StreakCountType>>
+  handler: (
+    req: HttpRequest<Body<ICrateStreakCountParams>>,
+  ) => Promise<HttpResponse<StreakCountType>>
 }
 
 export interface ICreateStreakCountRepository {

@@ -1,31 +1,31 @@
 import express from 'express'
-import cors, { CorsOptions } from 'cors'
+import cors, { type CorsOptions } from 'cors'
 import { config } from 'dotenv'
 import { MongoClient } from './database/mongodb'
 import { users } from './routes/users'
 import { streakCounts } from './routes/streak-counts'
 import { auth } from './routes/auth'
-// import { authentication } from './middlewares/authentication'
+import { authentication } from './middlewares/authentication'
 
 const app = express()
 
 const main = async () => {
   config()
 
-  const port = process.env.PORT || 8080  
+  const port = process.env.PORT ?? 8080
 
   await MongoClient.connect()
 
   const corsOptions: CorsOptions = {
     origin: process.env.DEV_ENV === 'true' ? '*' : 'https://streak-count.vercel.app/',
-    methods: ['GET', 'POST', 'PUT', 'DELETE']
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
   }
 
   app.use(cors(corsOptions))
   app.use(express.json())
-  
+
   app.use('/', auth)
-  // app.use(authentication)
+  app.use(authentication)
   app.use('/users', users)
   app.use('/streak-counts', streakCounts)
 

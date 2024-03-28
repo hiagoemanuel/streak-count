@@ -1,6 +1,6 @@
 interface ResponseBody<B, H> {
   body: B | null
-  header?: H | undefined 
+  header?: H | undefined
   message: string
   statusCode: number
   statusText: string
@@ -10,9 +10,15 @@ export type HttpResponse<B, H = undefined> = ResponseBody<B | null, H | undefine
 
 export type HttpRequest<T> = ReqParams<T> & { [K in keyof T]: T[K] }
 
-export type Body<T> = { body: T }
-export type Headers<T> = { headers: T }
-export type Params<T> = { params: T }
+export interface Body<T> {
+  body: T
+}
+export interface Headers<T> {
+  headers: T
+}
+export interface Params<T> {
+  params: T
+}
 
 type ReqParams<T> =
   T extends Body<infer B>
@@ -29,5 +35,5 @@ export enum HttpStatus {
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
   NOT_FOUND = 404,
-  INTERNAL_SERVER_ERROR = 500
+  INTERNAL_SERVER_ERROR = 500,
 }

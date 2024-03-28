@@ -4,12 +4,12 @@ export const StreakCountSchema = z.object({
   id: z.string(),
   createdAt: z.date(),
   name: z.string().min(4).max(16),
-  count: z.number()
+  count: z.number(),
 })
 
 export const UpdateStreakCountParams = z.object({
   name: StreakCountSchema.shape.name.optional(),
-  count: StreakCountSchema.shape.count.optional()
+  count: StreakCountSchema.shape.count.optional(),
 })
 
 export type StreakCountType = z.infer<typeof StreakCountSchema>

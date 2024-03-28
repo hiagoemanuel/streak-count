@@ -1,7 +1,7 @@
-import { UserType } from '../../../schemas/user'
+import { type UserType } from '../../../schemas/user'
 import { internalServerError, ok } from '../../helpers'
-import { HttpRequest, HttpResponse, Params } from '../../protocols'
-import { IDeleteUserController, IDeleteUserRepository } from './protocols'
+import { type HttpRequest, type HttpResponse, type Params } from '../../protocols'
+import { type IDeleteUserController, type IDeleteUserRepository } from './protocols'
 
 export class DeleteUserController implements IDeleteUserController {
   constructor(private readonly deleteUserRepository: IDeleteUserRepository) {}

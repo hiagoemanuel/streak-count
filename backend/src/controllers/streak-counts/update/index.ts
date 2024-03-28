@@ -1,13 +1,17 @@
-import { StreakCountType, UpdateStreakCountParams, UpdateStreakCountParamsType } from '../../../schemas/streakCount'
+import {
+  type StreakCountType,
+  UpdateStreakCountParams,
+  type UpdateStreakCountParamsType,
+} from '../../../schemas/streakCount'
 import { badRequest, internalServerError, ok } from '../../helpers'
-import { HttpRequest, Params, HttpResponse, Body } from '../../protocols'
-import { IUpdateStreakCountController, IUpdateStreakCountRepository } from './protocols'
+import { type HttpRequest, type Params, type HttpResponse, type Body } from '../../protocols'
+import { type IUpdateStreakCountController, type IUpdateStreakCountRepository } from './protocols'
 
 export class UpdateStreakCountController implements IUpdateStreakCountController {
   constructor(private readonly updateStreakCountRepository: IUpdateStreakCountRepository) {}
 
   async handler(
-    req: HttpRequest<Body<UpdateStreakCountParamsType> & Params<{ id: string }>>
+    req: HttpRequest<Body<UpdateStreakCountParamsType> & Params<{ id: string }>>,
   ): Promise<HttpResponse<StreakCountType>> {
     try {
       const validFields = UpdateStreakCountParams.safeParse(req.body)
@@ -19,7 +23,10 @@ export class UpdateStreakCountController implements IUpdateStreakCountController
         return badRequest<null>(null, message)
       }
 
-      const streakCountUpdated = await this.updateStreakCountRepository.updateStreakCount(req.body, req.params)
+      const streakCountUpdated = await this.updateStreakCountRepository.updateStreakCount(
+        req.body,
+        req.params,
+      )
 
       return ok<StreakCountType>(streakCountUpdated, 'The streak count was updated')
     } catch (err) {

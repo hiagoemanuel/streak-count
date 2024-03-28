@@ -1,22 +1,24 @@
-import { IGetStrekCountsRepository } from '../../../controllers/streak-counts/get/protocols'
+import { type IGetStrekCountsRepository } from '../../../controllers/streak-counts/get/protocols'
 import { MongoClient } from '../../../database/mongodb'
-import { StreakCountType } from '../../../schemas/streakCount'
-import { UserType } from '../../../schemas/user'
+import { type StreakCountType } from '../../../schemas/streakCount'
+import { type UserType } from '../../../schemas/user'
 
 export class MongoGetStreakCountsRepository implements IGetStrekCountsRepository {
   async getStreakCounts(): Promise<UserType[]> {
-    const streakCounts = await MongoClient.collection.find({}, { projection: ['streakCounts', 'name'] }).toArray()
+    const streakCounts = await MongoClient.collection
+      .find({}, { projection: ['streakCounts', 'name'] })
+      .toArray()
 
     return streakCounts.map(({ _id, ...rest }) => ({
       id: _id.toHexString(),
-      ...rest
+      ...rest,
     }))
   }
 
   async getStreakCountById(params: { id: string }): Promise<StreakCountType> {
     const streakCount = await MongoClient.collection.findOne(
       { 'streakCounts.id': params.id },
-      { projection: ['streakCounts'] }
+      { projection: ['streakCounts'] },
     )
 
     if (!streakCount) throw 'Streak Count not found'

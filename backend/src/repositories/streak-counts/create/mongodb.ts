@@ -1,16 +1,16 @@
 import { ObjectId } from 'mongodb'
 import {
-  ICrateStreakCountParams,
-  ICreateStreakCountRepository
+  type ICrateStreakCountParams,
+  type ICreateStreakCountRepository,
 } from '../../../controllers/streak-counts/create/protocols'
 import { MongoClient } from '../../../database/mongodb'
-import { StreakCountType } from '../../../schemas/streakCount'
+import { type StreakCountType } from '../../../schemas/streakCount'
 
 export class MongoCreateStreakCountRepository implements ICreateStreakCountRepository {
   async createStreakCount(req: ICrateStreakCountParams): Promise<StreakCountType> {
     const streakCountList = await MongoClient.collection.findOne(
       { _id: new ObjectId(req.userId) },
-      { projection: ['streakCounts'] }
+      { projection: ['streakCounts'] },
     )
 
     if (!streakCountList) throw 'Streak count was not created'
@@ -25,12 +25,12 @@ export class MongoCreateStreakCountRepository implements ICreateStreakCountRepos
       id: streakCountId,
       name: req.name,
       createdAt: new Date(),
-      count: 0
+      count: 0,
     }
 
     const newStreakCount = await MongoClient.collection.findOneAndUpdate(
       { _id: new ObjectId(req.userId) },
-      { $push: { streakCounts: streakCountSchema } }
+      { $push: { streakCounts: streakCountSchema } },
     )
 
     if (!newStreakCount) throw 'Streak count was not created'

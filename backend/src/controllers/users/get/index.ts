@@ -1,7 +1,8 @@
-import { UserType } from '../../../schemas/user'
-import { internalServerError, notFound, ok } from '../../helpers'
-import { HttpRequest, HttpResponse, Params } from '../../protocols'
-import { IGetUserController, IGetUserRepository } from './protocols'
+import { decode } from 'jsonwebtoken'
+import { type UserType } from '../../../schemas/user'
+import { badRequest, internalServerError, notFound, ok } from '../../helpers'
+import { type HttpRequest, type HttpResponse, type Params } from '../../protocols'
+import { type IGetUserController, type IGetUserRepository } from './protocols'
 
 export class GetUsersController implements IGetUserController {
   constructor(private readonly getUserRepository: IGetUserRepository) {}
@@ -15,9 +16,15 @@ export class GetUsersController implements IGetUserController {
     }
   }
 
-  async handlerOneUser(req: HttpRequest<Params<{ id: string }>>): Promise<HttpResponse<UserType>> {
+  async handlerOneUser(
+    req: HttpRequest<Params<{ token: string }>>,
+  ): Promise<HttpResponse<UserType>> {
     try {
-      const user = await this.getUserRepository.getOneUser(req.params.id)
+      const userByToken = decode(req.params.token) as UserType | null
+      console.log(userByToken)
+      if (!userByToken) return badRequest<null>(null, 'This token is invalid')
+
+      const user = await this.getUserRepository.getOneUser(userByToken.id)
       if (!user) return notFound<null>(null, 'User was not found')
       return ok<UserType>(user, 'User was found')
     } catch (err) {

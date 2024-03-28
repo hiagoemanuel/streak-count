@@ -1,13 +1,19 @@
 import bcrypt from 'bcrypt'
 
-import { ICreateUser, ICreateUserRepository } from '../../../controllers/users/create/protocols'
+import {
+  type ICreateUser,
+  type ICreateUserRepository,
+} from '../../../controllers/users/create/protocols'
 import { MongoClient } from '../../../database/mongodb'
-import { CreateUserParamsType, UserType } from '../../../schemas/user'
+import { type CreateUserParamsType, type UserType } from '../../../schemas/user'
 import { MongoQueryDbRepository } from '../../query-db/mongodb'
 
 export class MongoCreateUserRepository implements ICreateUserRepository {
   async createUser(userParams: CreateUserParamsType): Promise<ICreateUser> {
-    const findNameOrEmail = await new MongoQueryDbRepository().findNameOrEmail(userParams.name, userParams.email)
+    const findNameOrEmail = await new MongoQueryDbRepository().findNameOrEmail(
+      userParams.name,
+      userParams.email,
+    )
 
     if (!findNameOrEmail) throw 'boh'
 
@@ -16,8 +22,8 @@ export class MongoCreateUserRepository implements ICreateUserRepository {
         user: null,
         dbConsult: {
           message: findNameOrEmail.message,
-          userFound: findNameOrEmail.wasFound
-        }
+          userFound: findNameOrEmail.wasFound,
+        },
       }
     }
 
@@ -26,9 +32,9 @@ export class MongoCreateUserRepository implements ICreateUserRepository {
       createdAt: new Date(),
       credentials: {
         email: userParams.email,
-        password: bcrypt.hashSync(userParams.password, 10)
+        password: bcrypt.hashSync(userParams.password, 10),
       },
-      streakCounts: []
+      streakCounts: [],
     }
     const { insertedId } = await MongoClient.collection.insertOne(userSchema)
 
@@ -42,8 +48,8 @@ export class MongoCreateUserRepository implements ICreateUserRepository {
       user: { id: _id.toHexString(), ...rest },
       dbConsult: {
         message: findNameOrEmail.message,
-        userFound: findNameOrEmail.wasFound
-      }
+        userFound: findNameOrEmail.wasFound,
+      },
     }
   }
 }

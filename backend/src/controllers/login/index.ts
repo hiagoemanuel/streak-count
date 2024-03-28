@@ -1,15 +1,17 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { UserSchema, UserType } from '../../schemas/user'
+import { UserSchema, type UserType } from '../../schemas/user'
 import { badRequest, internalServerError, ok, unauthorized } from '../helpers'
-import { HttpRequest, Body, HttpResponse } from '../protocols'
-import { IGetUserRepository } from '../users/get/protocols'
-import { ILoginController, LoginParams } from './protocols'
+import { type HttpRequest, type Body, type HttpResponse } from '../protocols'
+import { type IGetUserRepository } from '../users/get/protocols'
+import { type ILoginController, type LoginParams } from './protocols'
 
 export class LoginController implements ILoginController {
   constructor(private readonly getUserRepository: IGetUserRepository) {}
 
-  async handler(req: HttpRequest<Body<LoginParams>>): Promise<HttpResponse<UserType, { 'auth-token': string }>> {
+  async handler(
+    req: HttpRequest<Body<LoginParams>>,
+  ): Promise<HttpResponse<UserType, { 'auth-token': string }>> {
     try {
       const validCredentials = UserSchema.shape.credentials.safeParse(req.body)
 
@@ -28,7 +30,9 @@ export class LoginController implements ILoginController {
 
       const token = jwt.sign(user, process.env.JWT_KEY ?? '')
 
-      return ok<UserType, { 'auth-token': string }>(user, 'Successfully logged in', { 'auth-token': token })
+      return ok<UserType, { 'auth-token': string }>(user, 'Successfully logged in', {
+        'auth-token': token,
+      })
     } catch (err) {
       return internalServerError<null>(null, String(err))
     }

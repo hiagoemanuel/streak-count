@@ -1,10 +1,16 @@
-import { IUpdateStreakCountRepository } from '../../../controllers/streak-counts/update/protocols'
+import { type IUpdateStreakCountRepository } from '../../../controllers/streak-counts/update/protocols'
 import { MongoClient } from '../../../database/mongodb'
-import { StreakCountType, UpdateStreakCountParamsType } from '../../../schemas/streakCount'
+import {
+  type StreakCountType,
+  type UpdateStreakCountParamsType,
+} from '../../../schemas/streakCount'
 import { MongoQueryDbRepository } from '../../query-db/mongodb'
 
 export class MongoUpadateStreakCountRepository implements IUpdateStreakCountRepository {
-  async updateStreakCount(body: UpdateStreakCountParamsType, params: { id: string }): Promise<StreakCountType> {
+  async updateStreakCount(
+    body: UpdateStreakCountParamsType,
+    params: { id: string },
+  ): Promise<StreakCountType> {
     const canUpdate = await new MongoQueryDbRepository().canUpdateStreakCount(body.name, params.id)
     const dbReturn = canUpdate.dbReturn
 
@@ -18,9 +24,9 @@ export class MongoUpadateStreakCountRepository implements IUpdateStreakCountRepo
         $set: {
           'streakCounts.$.id': newId,
           'streakCounts.$.name': body.name ?? dbReturn?.name,
-          'streakCounts.$.count': body.count ?? dbReturn?.count
-        }
-      }
+          'streakCounts.$.count': body.count ?? dbReturn?.count,
+        },
+      },
     )
 
     const streakCount = await MongoClient.collection.findOne({ 'streakCounts.id': newId })

@@ -1,14 +1,14 @@
 import { ObjectId } from 'mongodb'
 import { MongoClient } from '../../database/mongodb'
-import { UserType } from '../../schemas/user'
-import { IMongoQueryDbRepository, IQueryDbResponse } from './protocols'
-import { StreakCountType } from '../../schemas/streakCount'
+import { type UserType } from '../../schemas/user'
+import { type IMongoQueryDbRepository, type IQueryDbResponse } from './protocols'
+import { type StreakCountType } from '../../schemas/streakCount'
 
 export class MongoQueryDbRepository implements IMongoQueryDbRepository {
   async findNameOrEmail(name: string, email: string): Promise<IQueryDbResponse<UserType>> {
     const user = await MongoClient.collection.findOne(
       { $or: [{ 'credentials.email': email }, { name }] },
-      { projection: ['name', 'credentials.email'] }
+      { projection: ['name', 'credentials.email'] },
     )
 
     if (!user) return { wasFound: false, message: 'The user was not found' }
@@ -17,12 +17,16 @@ export class MongoQueryDbRepository implements IMongoQueryDbRepository {
     const selectedUser = { id: _id.toHexString(), ...rest }
 
     if (user && user?.name === name && user.credentials.email === email) {
-      return { wasFound: true, message: 'This name and email is already used', dbReturn: selectedUser }
+      return {
+        wasFound: true,
+        message: 'This name and email is already used',
+        dbReturn: selectedUser,
+      }
     } else if ((user && user?.name === name) || user?.credentials.email === email) {
       return {
         wasFound: true,
         message: `This ${user.name === name ? 'name' : 'email'} is already used`,
-        dbReturn: selectedUser
+        dbReturn: selectedUser,
       }
     } else {
       return { wasFound: false, message: 'The user was not found' }
@@ -32,7 +36,7 @@ export class MongoQueryDbRepository implements IMongoQueryDbRepository {
   async canUpdateUser(
     name: string | undefined,
     email: string | undefined,
-    userId: string
+    userId: string,
   ): Promise<IQueryDbResponse<UserType>> {
     const findNameOrEmail = await this.findNameOrEmail(name ?? '', email ?? '')
     const user = await MongoClient.collection.findOne({ _id: new ObjectId(userId) })
@@ -51,7 +55,10 @@ export class MongoQueryDbRepository implements IMongoQueryDbRepository {
     }
   }
 
-  async canUpdateStreakCount(name: string | undefined, id: string): Promise<IQueryDbResponse<StreakCountType>> {
+  async canUpdateStreakCount(
+    name: string | undefined,
+    id: string,
+  ): Promise<IQueryDbResponse<StreakCountType>> {
     const user = await MongoClient.collection.findOne({ 'streakCounts.id': id })
 
     if (!user) return { wasFound: false, message: 'User not found' }
@@ -62,7 +69,11 @@ export class MongoQueryDbRepository implements IMongoQueryDbRepository {
     if (nameAlreadyUsesd) {
       return { wasFound: true, message: 'This name is already used', dbReturn: nameAlreadyUsesd }
     } else {
-      return { wasFound: false, message: 'The streak count can be update', dbReturn: streakCountById }
+      return {
+        wasFound: false,
+        message: 'The streak count can be update',
+        dbReturn: streakCountById,
+      }
     }
   }
 }

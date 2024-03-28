@@ -18,7 +18,7 @@ users.get('/', async (req, res) => {
   res.status(response.statusCode).send(response)
 })
 
-users.get('/:id', async (req, res) => {
+users.get('/:token', async (req, res) => {
   const getUserRepository = new MongoGetUsersRepository()
   const getUserController = new GetUsersController(getUserRepository)
   const response = await getUserController.handlerOneUser({ params: req.params })

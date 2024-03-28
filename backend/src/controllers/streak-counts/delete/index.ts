@@ -1,10 +1,10 @@
-import { StreakCountType } from '../../../schemas/streakCount'
+import { type StreakCountType } from '../../../schemas/streakCount'
 import { internalServerError, ok } from '../../helpers'
-import { HttpRequest, Params, HttpResponse } from '../../protocols'
-import { IDeleteStreakCountController, IDeleteStreakCountRepository } from './protocols'
+import { type HttpRequest, type Params, type HttpResponse } from '../../protocols'
+import { type IDeleteStreakCountController, type IDeleteStreakCountRepository } from './protocols'
 
 export class DeleteStreakCountController implements IDeleteStreakCountController {
-  constructor (private readonly deleteStrekCountRepository: IDeleteStreakCountRepository) {}
+  constructor(private readonly deleteStrekCountRepository: IDeleteStreakCountRepository) {}
 
   async handler(req: HttpRequest<Params<{ id: string }>>): Promise<HttpResponse<StreakCountType>> {
     try {

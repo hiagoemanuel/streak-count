@@ -1,7 +1,7 @@
-import { CreateUserParams, CreateUserParamsType, UserType } from '../../../schemas/user'
+import { CreateUserParams, type CreateUserParamsType, type UserType } from '../../../schemas/user'
 import { badRequest, created, internalServerError } from '../../helpers'
-import { Body, HttpRequest, HttpResponse } from '../../protocols'
-import { ICreateUserController, ICreateUserRepository } from './protocols'
+import { type Body, type HttpRequest, type HttpResponse } from '../../protocols'
+import { type ICreateUserController, type ICreateUserRepository } from './protocols'
 
 export class CreateUserController implements ICreateUserController {
   constructor(private readonly createUserRepository: ICreateUserRepository) {}
@@ -19,8 +19,10 @@ export class CreateUserController implements ICreateUserController {
 
       const userCreated = await this.createUserRepository.createUser(req.body)
 
-      if (userCreated.dbConsult.userFound) return badRequest<null>(null, userCreated.dbConsult.message)
-      if (!userCreated.user) return internalServerError<null>(null, 'Unable to create user, try again')
+      if (userCreated.dbConsult.userFound)
+        return badRequest<null>(null, userCreated.dbConsult.message)
+      if (!userCreated.user)
+        return internalServerError<null>(null, 'Unable to create user, try again')
       return created<UserType>(userCreated.user, 'The user was created')
     } catch (err) {
       return internalServerError<null>(null, String(err))

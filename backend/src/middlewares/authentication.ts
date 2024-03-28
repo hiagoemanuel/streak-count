@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 import { unauthorized } from '../controllers/helpers'
 import jwt from 'jsonwebtoken'
 

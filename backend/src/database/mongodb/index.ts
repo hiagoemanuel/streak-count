@@ -1,5 +1,5 @@
-import { MongoClient as Mongo, type Db, Collection } from 'mongodb'
-import { UserType } from '../../schemas/user'
+import { MongoClient as Mongo, type Db, type Collection } from 'mongodb'
+import { type UserType } from '../../schemas/user'
 
 export const MongoClient = {
   client: undefined as unknown as Mongo,
@@ -11,8 +11,8 @@ export const MongoClient = {
     const client = new Mongo(URI ?? '', {
       auth: {
         username: process.env.MONGODB_USERNAME,
-        password: process.env.MONGODB_PASSWORD
-      }
+        password: process.env.MONGODB_PASSWORD,
+      },
     })
 
     this.client = client
@@ -21,8 +21,9 @@ export const MongoClient = {
     if (isTest === 'isTest') {
       this.collection = this.db.collection<Omit<UserType, 'id'>>('test')
     } else {
-      this.collection = this.db.collection<Omit<UserType, 'id'>>(process.env.MONGODB_COLLECTION ?? '')
+      this.collection = this.db.collection<Omit<UserType, 'id'>>(
+        process.env.MONGODB_COLLECTION ?? '',
+      )
     }
-
-  }
+  },
 }

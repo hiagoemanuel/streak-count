@@ -1,8 +1,8 @@
-import { StreakCountType } from '../../../schemas/streakCount'
-import { UserType } from '../../../schemas/user'
+import { type StreakCountType } from '../../../schemas/streakCount'
+import { type UserType } from '../../../schemas/user'
 import { internalServerError, ok } from '../../helpers'
-import { HttpRequest, HttpResponse, Params } from '../../protocols'
-import { IGetStrekCountsController, IGetStrekCountsRepository } from './protocols'
+import { type HttpRequest, type HttpResponse, type Params } from '../../protocols'
+import { type IGetStrekCountsController, type IGetStrekCountsRepository } from './protocols'
 
 export class GetStreakCountsController implements IGetStrekCountsController {
   constructor(private readonly getStreakCountsRepository: IGetStrekCountsRepository) {}
@@ -16,7 +16,9 @@ export class GetStreakCountsController implements IGetStrekCountsController {
     }
   }
 
-  async handlerOneStreakCount(req: HttpRequest<Params<{ id: string }>>): Promise<HttpResponse<StreakCountType>> {
+  async handlerOneStreakCount(
+    req: HttpRequest<Params<{ id: string }>>,
+  ): Promise<HttpResponse<StreakCountType>> {
     try {
       const streakCount = await this.getStreakCountsRepository.getStreakCountById(req.params)
       return ok<StreakCountType>(streakCount, 'Streak Count was found')

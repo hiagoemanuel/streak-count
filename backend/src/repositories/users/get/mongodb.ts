@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb'
-import { IGetUserRepository } from '../../../controllers/users/get/protocols'
+import { type IGetUserRepository } from '../../../controllers/users/get/protocols'
 import { MongoClient } from '../../../database/mongodb'
-import { UserType } from '../../../schemas/user'
+import { type UserType } from '../../../schemas/user'
 
 export class MongoGetUsersRepository implements IGetUserRepository {
   async getUsers(): Promise<UserType[]> {
@@ -9,7 +9,7 @@ export class MongoGetUsersRepository implements IGetUserRepository {
 
     return users.map(({ _id, ...rest }) => ({
       id: _id.toHexString(),
-      ...rest
+      ...rest,
     }))
   }
 
