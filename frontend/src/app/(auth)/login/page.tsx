@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { type FormEvent, createRef, useState, useContext } from 'react'
 
 export default function Login() {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const formRef = createRef<HTMLFormElement>()
   const [formErr, setFormErr] = useState<{ wasErr: boolean; msg: string }>({
     wasErr: false,
@@ -14,6 +15,7 @@ export default function Login() {
 
   const handlerLogin = async (e: FormEvent) => {
     e.preventDefault()
+    setIsLoading(true)
     const formData = new FormData(formRef.current ?? undefined)
     const email = formData.get('email') as string
     const password = formData.get('password') as string
@@ -24,6 +26,7 @@ export default function Login() {
     } catch (err) {
       setFormErr({ wasErr: true, msg: 'incorrect email or password' })
     }
+    setIsLoading(false)
   }
 
   return (
@@ -74,7 +77,7 @@ export default function Login() {
           <input
             className="w-full p-2 rounded-2xl cursor-pointer text-center text-xl bg-orange"
             type="submit"
-            value="Login"
+            value={isLoading ? 'Loading...' : 'Login'}
           />
           <Link
             className="w-full p-2 rounded-2xl cursor-pointer text-center text-xl bg-orange"
