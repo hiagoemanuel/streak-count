@@ -2,9 +2,6 @@ import { Aldrich } from 'next/font/google'
 import type { Metadata } from 'next'
 import { cookies } from 'next/headers'
 
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-
 import './global.css'
 import { AuthProvider } from '@/contexts/AuthContext'
 
@@ -25,11 +22,7 @@ export default function RootLayout(props: { children: React.ReactNode; modal: Re
     >
       <body className={aldrich.className}>
         <AuthProvider>
-          <main className="h-svh p-7 flex flex-col justify-between">
-            <Header />
-            {props.children}
-            <Footer />
-          </main>
+          <main className="h-svh p-7 flex flex-col justify-between">{props.children}</main>
           {props.modal}
         </AuthProvider>
       </body>

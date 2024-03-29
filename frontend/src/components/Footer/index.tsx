@@ -2,7 +2,7 @@ import Link from 'next/link'
 import ConfigButton from './ConfigButton'
 import { Interrogation } from '../Svgs/Interrogation'
 
-export default function Footer() {
+export default function Footer({ streakRoute }: { streakRoute?: boolean }) {
   return (
     <footer className="flex justify-between items-end gap-2 flex-wrap">
       <div>
@@ -19,7 +19,7 @@ export default function Footer() {
           {'<'}hiago emanuel{'>'}
         </Link>
       </h4>
-      <ConfigButton />
+      <ConfigButton streakRoute={streakRoute} />
     </footer>
   )
 }

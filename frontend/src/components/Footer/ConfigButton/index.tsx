@@ -1,41 +1,16 @@
 'use client'
 
 import Link from 'next/link'
-import { parseCookies, setCookie } from 'nookies'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { Gear } from '@/components/Svgs/Gear'
 import { LogOut } from '@/components/Svgs/LogOut'
 import { Trash } from '@/components/Svgs/Trash'
 import { Reset } from '@/components/Svgs/Reset'
-import { DarkIcon } from '@/components/Svgs/DarkIcon'
-import { LightIcon } from '@/components/Svgs/LightIcon'
+import ThemeButton from './ThemeButton'
 
-export default function ConfigButton() {
+export default function ConfigButton({ streakRoute }: { streakRoute?: boolean }) {
   const [handlerConfigs, setHandlerConfig] = useState<boolean>(false)
-  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>()
-
-  useEffect(() => {
-    const { 'streak-count.theme': theme } = parseCookies()
-    if (theme === 'dark') {
-      setCurrentTheme('dark')
-    } else {
-      setCurrentTheme('light')
-    }
-  }, [])
-
-  const handlerTheme = () => {
-    const htmlDOM = document.getElementsByTagName('html')[0]
-    if (currentTheme === 'dark') {
-      htmlDOM.classList.remove('dark')
-      setCookie(undefined, 'streak-count.theme', 'light', { maxAge: 30 * 24 * 60 * 60 }) // 30d
-      setCurrentTheme('light')
-    } else {
-      htmlDOM.classList.add('dark')
-      setCookie(null, 'streak-count.theme', 'dark', { maxAge: 30 * 24 * 60 * 60 }) // 30d
-      setCurrentTheme('dark')
-    }
-  }
 
   return (
     <div className="w-20 h-20 rounded-full z-10 relative bg-light-200 dark:bg-dark-200">
@@ -55,21 +30,27 @@ export default function ConfigButton() {
       <div
         className={`${handlerConfigs ? 'scale-y-100' : 'scale-y-0'} transition-transform origin-bottom w-full p-5 pb-12 rounded-t-full flex flex-col gap-6 absolute bottom-9 -z-10 overflow-x-hidden bg-light-200 dark:bg-dark-200`}
       >
-        <Link href="/logout">
-          <LogOut />
-        </Link>
-        <Link href="/delete-streak">
-          <Trash />
-        </Link>
-        <Link href="/reset-streak">
-          <Reset />
-        </Link>
-        <button
-          className={`${currentTheme === 'light' ? '-translate-x-24' : ''} transition-transform w-max flex gap-14 overflow-hidden`}
-        >
-          <DarkIcon onClick={handlerTheme} />
-          <LightIcon onClick={handlerTheme} />
-        </button>
+        {streakRoute ? (
+          <>
+            <Link href="/logout">
+              <LogOut />
+            </Link>
+            <Link href="/delete-streak">
+              <Trash />
+            </Link>
+            <Link href="/reset-streak">
+              <Reset />
+            </Link>
+            <ThemeButton propClass="py-0" />
+          </>
+        ) : (
+          <>
+            <Link href="/logout">
+              <LogOut />
+            </Link>
+            <ThemeButton propClass="py-0" />
+          </>
+        )}
       </div>
     </div>
   )

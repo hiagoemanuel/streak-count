@@ -48,6 +48,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(data.body)
 
     router.push('/')
+    router.refresh()
   }
 
   const signup = async ({ name, email, password, dontForget }: ISignup) => {
