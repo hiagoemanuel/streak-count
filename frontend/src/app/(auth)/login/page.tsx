@@ -25,8 +25,8 @@ export default function Login() {
       await login({ email, password, dontForget })
     } catch (err) {
       setFormErr({ wasErr: true, msg: 'incorrect email or password' })
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   return (

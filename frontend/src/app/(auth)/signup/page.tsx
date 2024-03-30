@@ -26,8 +26,8 @@ export default function Signup() {
       await signup({ name, email, password, dontForget })
     } catch (err) {
       setFormErr({ wasErr: true, msg: 'this email or name is already in use' })
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   return (

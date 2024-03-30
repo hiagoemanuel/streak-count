@@ -1,12 +1,10 @@
-'use client'
-
-import { AuthContext } from '@/contexts/AuthContext'
+import getUser from '@/app/actions'
 import Link from 'next/link'
-import { useContext } from 'react'
 
-export default function StreakList() {
-  const { user } = useContext(AuthContext)
-  const streaks = user?.streakCounts ?? []
+export default async function StreakList() {
+  const data = await getUser()
+
+  const streaks = data.streakCounts ?? []
 
   return streaks.map((streak) => (
     <Link
