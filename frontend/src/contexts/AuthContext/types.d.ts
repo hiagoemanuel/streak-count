@@ -6,12 +6,14 @@ export interface IUser {
     email: string
     passwosrd: string
   }
-  streakCounts: Array<{
-    id: string
-    name: string
-    createdAt: string
-    count: number
-  }>
+  streakCounts: IStreakCount[]
+}
+
+export interface IStreakCount {
+  id: string
+  name: string
+  createdAt: string
+  count: number
 }
 
 export interface ILogin {

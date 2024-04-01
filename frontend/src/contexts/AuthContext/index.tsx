@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
       fetch()
     }
-  }, [])
+  }, [user])
 
   const isAuthenticated = !!user
 
