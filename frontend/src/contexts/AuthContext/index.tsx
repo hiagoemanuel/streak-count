@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
       fetch()
     }
-  }, [user])
+  }, [])
 
   const isAuthenticated = !!user
 
@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     router.push('/')
   }
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, signup }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, setUser, login, signup }}>
       {children}
     </AuthContext.Provider>
   )

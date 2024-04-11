@@ -1,26 +1,36 @@
 'use client'
 
+import { AuthContext } from '@/contexts/AuthContext'
 import { type IStreakCount } from '@/contexts/AuthContext/types'
 import { api } from '@/lib/axios'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 export default function StreakCount({ streakCount }: { streakCount: IStreakCount }) {
+  const { user, setUser } = useContext(AuthContext)
   const [count, setCount] = useState<number>(streakCount.count)
+  const [changing, setChanging] = useState<boolean>(false)
 
-  const handlerCount = (sign: '+' | '-') => {
+  const handlerCount = async (sign: '+' | '-') => {
     if (count === 0 && sign === '-') return
-    const fetch = async (count: number) => {
-      await api.put(`streak-counts/${streakCount.id}`, { count })
-    }
+    setChanging(true)
     const counted = sign === '+' ? count + 1 : count - 1
-    fetch(counted)
+
+    await api.put(`streak-counts/${streakCount.id}`, { count: counted })
+
+    const newStreakCountList = user?.streakCounts.map((sc) => {
+      if (sc === streakCount) return { ...streakCount, count: counted }
+      return sc
+    })
+
+    if (user && newStreakCountList) setUser({ ...user, streakCounts: newStreakCountList })
     setCount(counted)
+    setChanging(false)
   }
 
   return (
     <div>
       <div className="text-center">
-        <h1 className="xs:text-8xl">{count}</h1>
+        <h1 className={`${changing ? 'opacity-5' : ''} xs:text-8xl`}>{count}</h1>
         <h2 className="xs:text-4xl">Streak Count</h2>
         <h3 className="xs:text-3xl">{streakCount.name}</h3>
       </div>

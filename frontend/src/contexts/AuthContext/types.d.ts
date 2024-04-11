@@ -40,6 +40,7 @@ export interface IHttpResponse<B, H = undefined> {
 export interface IAuthContext {
   isAuthenticated: boolean
   user: IUser | null
+  setUser: (user: IUser) => void
   login: (credentials: ILogin) => Promise<void>
   signup: (credentials: ISignup) => Promise<void>
 }
