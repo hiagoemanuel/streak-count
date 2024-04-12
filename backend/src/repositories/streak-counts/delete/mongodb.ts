@@ -4,9 +4,11 @@ import { type StreakCountType } from '../../../schemas/streakCount'
 
 export class MongoDeleteStreakCount implements IDeleteStreakCountRepository {
   async deleteStreakCount(params: { id: string }): Promise<StreakCountType> {
+    const streakCountId = params.id.replaceAll(' ', '%20')
+
     const user = await MongoClient.collection.findOneAndUpdate(
-      { 'streakCounts.id': params.id },
-      { $pull: { streakCounts: { id: { $in: [params.id] } } } },
+      { 'streakCounts.id': streakCountId },
+      { $pull: { streakCounts: { id: { $in: [streakCountId] } } } },
     )
 
     if (!user) throw 'This streak count id does not exist'

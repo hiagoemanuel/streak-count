@@ -8,11 +8,17 @@ export function generateMetadata({ params }: { params: { streakCount: string } }
   return { title: `Streak Count | ${streakCount}` }
 }
 
-export default function StreakCountLayout(props: { children: React.ReactNode }) {
+interface Props {
+  children: React.ReactNode
+  params: { streakCount: string }
+}
+
+export default function StreakCountLayout(props: Props) {
+  const param = props.params.streakCount
   return (
     <>
       {props.children}
-      <DeleteStreak />
+      <DeleteStreak streakCountName={param} />
       <NewStreak />
       <ResetStreak />
     </>

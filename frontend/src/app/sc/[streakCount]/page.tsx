@@ -12,7 +12,9 @@ export default function Streak({ params }: { params: { streakCount: string } }) 
   const [streakCount, setStreakCount] = useState<IStreakCount>()
 
   useEffect(() => {
-    const streak = user?.streakCounts.find((sc) => sc.name === params.streakCount)
+    const streak = user?.streakCounts.find(
+      (sc) => sc.name === params.streakCount.replaceAll('%20', ' '),
+    )
     setStreakCount(streak)
     if (user && !streak) throw new Error('This streak count does not exist')
   }, [user])
