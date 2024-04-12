@@ -3,6 +3,7 @@ import Modal from '@/components/Modal'
 export default function NewStreak() {
   return (
     <Modal
+      modalId="new-streak"
       title="Create streak count"
       inputs={{
         submit: { value: 'Create', color: 'orange' },

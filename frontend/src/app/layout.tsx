@@ -4,6 +4,9 @@ import { cookies } from 'next/headers'
 
 import './global.css'
 import { AuthProvider } from '@/contexts/AuthContext'
+import { ModalProvider } from '@/contexts/ModalContext'
+import Logout from '@/components/modals/Logout'
+import Help from '@/components/modals/Help'
 
 const aldrich = Aldrich({ weight: ['400'], subsets: ['latin'] })
 
@@ -12,9 +15,8 @@ export const metadata: Metadata = {
   description: 'developed by <hiago emanuel>',
 }
 
-export default function RootLayout(props: { children: React.ReactNode; modal: React.ReactNode }) {
+export default function RootLayout(props: { children: React.ReactNode }) {
   const themeCookie = cookies().get('streak-count.theme')
-
   return (
     <html
       className={`${themeCookie?.value === 'dark' ? 'dark' : ''} bg-light-100 text-dark-100 dark:bg-dark-100 dark:text-light-100`}
@@ -22,8 +24,11 @@ export default function RootLayout(props: { children: React.ReactNode; modal: Re
     >
       <body className={aldrich.className}>
         <AuthProvider>
-          <main className="h-svh p-7 flex flex-col justify-between">{props.children}</main>
-          {props.modal}
+          <ModalProvider>
+            <main className="h-svh p-7 flex flex-col justify-between">{props.children}</main>
+            <Logout />
+            <Help />
+          </ModalProvider>
         </AuthProvider>
       </body>
     </html>

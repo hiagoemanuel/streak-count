@@ -1,5 +1,6 @@
 export default interface ModalProps {
   children?: React.ReactNode
+  modalId: string
   title: string
   inputs: {
     submit: InputsType

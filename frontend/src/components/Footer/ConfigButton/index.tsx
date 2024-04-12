@@ -1,16 +1,17 @@
 'use client'
 
-import Link from 'next/link'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { Gear } from '@/components/Svgs/Gear'
 import { LogOut } from '@/components/Svgs/LogOut'
 import { Trash } from '@/components/Svgs/Trash'
 import { Reset } from '@/components/Svgs/Reset'
 import ThemeButton from './ThemeButton'
+import { ModalContext } from '@/contexts/ModalContext'
 
-export default function ConfigButton({ streakRoute }: { streakRoute?: boolean }) {
+export default function ConfigButton({ streakRoute }: { streakRoute?: string }) {
   const [handlerConfigs, setHandlerConfig] = useState<boolean>(false)
+  const { openModal } = useContext(ModalContext)
 
   return (
     <div className="w-20 h-20 rounded-full z-10 relative bg-light-200 dark:bg-dark-200">
@@ -32,22 +33,42 @@ export default function ConfigButton({ streakRoute }: { streakRoute?: boolean })
       >
         {streakRoute ? (
           <>
-            <Link href="/logout">
+            <div
+              className="cursor-pointer"
+              onClick={() => {
+                openModal('logout')
+              }}
+            >
               <LogOut />
-            </Link>
-            <Link href="/delete-streak">
+            </div>
+            <div
+              className="cursor-pointer"
+              onClick={() => {
+                openModal('delete-streak')
+              }}
+            >
               <Trash />
-            </Link>
-            <Link href="/reset-streak">
+            </div>
+            <div
+              className="cursor-pointer"
+              onClick={() => {
+                openModal('reset-streak')
+              }}
+            >
               <Reset />
-            </Link>
+            </div>
             <ThemeButton propClass="py-0" />
           </>
         ) : (
           <>
-            <Link href="/logout">
+            <div
+              className="cursor-pointer"
+              onClick={() => {
+                openModal('logout')
+              }}
+            >
               <LogOut />
-            </Link>
+            </div>
             <ThemeButton propClass="py-0" />
           </>
         )}

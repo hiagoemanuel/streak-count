@@ -13,8 +13,8 @@ export default function Header() {
   return (
     <header className="flex justify-between items-center">
       <div className="flex items-baseline gap-2">
-        <User />
-        <h3 className="text-orange hidden sm:block">{user?.name}</h3>
+        <User className="hidden xs:block" />
+        <h3 className="text-orange">{user?.name}</h3>
       </div>
       <Link href="/">
         <Home />

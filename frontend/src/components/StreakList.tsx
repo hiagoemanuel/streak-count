@@ -12,7 +12,7 @@ export default async function StreakList() {
   return streaks.map((streak) => (
     <Link
       className="flex justify-between p-3 border-b-2 border-solid border-light-200 dark:border-dark-200 last:border-[transparent]"
-      href={streak.name}
+      href={'sc/' + streak.name}
       key={streak.name}
     >
       <h1 className="text-xl sm:text-4xl">{streak.name}</h1>
