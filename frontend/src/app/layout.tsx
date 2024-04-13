@@ -7,6 +7,7 @@ import { AuthProvider } from '@/contexts/AuthContext'
 import { ModalProvider } from '@/contexts/ModalContext'
 import Logout from '@/components/modals/Logout'
 import Help from '@/components/modals/Help'
+import NewStreak from '@/components/modals/NewStreak'
 
 const aldrich = Aldrich({ weight: ['400'], subsets: ['latin'] })
 
@@ -28,6 +29,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             <main className="h-svh p-7 flex flex-col justify-between">{props.children}</main>
             <Logout />
             <Help />
+            <NewStreak />
           </ModalProvider>
         </AuthProvider>
       </body>

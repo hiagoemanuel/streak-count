@@ -1,6 +1,5 @@
 import { type Metadata } from 'next'
 import DeleteStreak from '../../../components/modals/DeleteStreak'
-import NewStreak from '../../../components/modals/NewStreak'
 import ResetStreak from '../../../components/modals/ResetStreak'
 
 export function generateMetadata({ params }: { params: { streakCount: string } }): Metadata {
@@ -19,7 +18,6 @@ export default function StreakCountLayout(props: Props) {
     <>
       {props.children}
       <DeleteStreak streakCountName={param} />
-      <NewStreak />
       <ResetStreak />
     </>
   )

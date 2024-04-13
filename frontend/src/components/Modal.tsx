@@ -24,6 +24,7 @@ export default function Modal({ children, title, inputs, modalId }: ModalProps) 
               className={`${inputs.refuse.color === 'orange' ? 'bg-orange' : 'bg-error'} py-2 px-5 rounded-lg cursor-pointer`}
               onClick={() => {
                 closeModal(modalId)
+                if (inputs.refuse.event) inputs.refuse.event()
               }}
             >
               {inputs.refuse.value}
