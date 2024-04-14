@@ -20,7 +20,8 @@ export default function NewStreak() {
 
     try {
       const res = await api.post('/streak-counts', { userId, name: streakName })
-      if (res.status !== 200) throw 'invalid name, try again'
+      console.log(res)
+      if (res.status !== 201) throw 'invalid name, try again'
 
       const streakCount = res.data.body
       if (user) setUser({ ...user, streakCounts: [...user.streakCounts, streakCount] })
@@ -29,6 +30,7 @@ export default function NewStreak() {
       router.push('/sc/' + streakName)
     } catch (err) {
       setInputPlaceholder(err as string)
+      if (inputRef.current) inputRef.current.value = ''
     }
   }
 
