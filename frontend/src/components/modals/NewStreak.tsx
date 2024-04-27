@@ -20,7 +20,6 @@ export default function NewStreak() {
 
     try {
       const res = await api.post('/streak-counts', { userId, name: streakName })
-      console.log(res)
       if (res.status !== 201) throw 'invalid name, try again'
 
       const streakCount = res.data.body

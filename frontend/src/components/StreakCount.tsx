@@ -3,9 +3,10 @@
 import { AuthContext } from '@/contexts/AuthContext'
 import { type IStreakCount } from '@/contexts/AuthContext/types'
 import { api } from '@/lib/axios'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
-export default function StreakCount({ streakCount }: { streakCount: IStreakCount }) {
+export default function StreakCount({ streak }: { streak: IStreakCount }) {
+  const [streakCount, setStreakCount] = useState<IStreakCount>(streak)
   const { user, setUser } = useContext(AuthContext)
   const [count, setCount] = useState<number>(streakCount.count)
   const [changing, setChanging] = useState<boolean>(false)
@@ -27,10 +28,15 @@ export default function StreakCount({ streakCount }: { streakCount: IStreakCount
     setChanging(false)
   }
 
+  useEffect(() => {
+    const updatedStreak = user?.streakCounts.find((sc) => sc.id === streak.id)
+    if (updatedStreak) setStreakCount(updatedStreak)
+  }, [user])
+
   return (
     <div>
       <div className="text-center">
-        <h1 className={`${changing ? 'opacity-5' : ''} xs:text-8xl`}>{count}</h1>
+        <h1 className={`${changing ? 'opacity-5' : ''} xs:text-8xl`}>{streakCount.count}</h1>
         <h2 className="xs:text-4xl">Streak Count</h2>
         <h3 className="xs:text-3xl">{streakCount.name}</h3>
       </div>

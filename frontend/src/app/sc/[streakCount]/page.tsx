@@ -22,7 +22,7 @@ export default function Streak({ params }: { params: { streakCount: string } }) 
   return (
     <>
       <Header />
-      {streakCount ? <StreakCount streakCount={streakCount} /> : <></>}
+      {streakCount ? <StreakCount streak={streakCount} /> : <></>}
       <Footer streakRoute={params.streakCount} />
     </>
   )

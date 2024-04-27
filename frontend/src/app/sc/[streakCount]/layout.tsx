@@ -18,7 +18,7 @@ export default function StreakCountLayout(props: Props) {
     <>
       {props.children}
       <DeleteStreak streakCountName={param} />
-      <ResetStreak />
+      <ResetStreak streakCountName={param} />
     </>
   )
 }
