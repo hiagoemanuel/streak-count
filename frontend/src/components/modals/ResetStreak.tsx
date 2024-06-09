@@ -9,7 +9,7 @@ import { useContext } from 'react'
 
 export default function ResetStreak({ streakCountName }: { streakCountName: string }) {
   const { user, setUser } = useContext(AuthContext)
-  const { isModalOpen, closeModal } = useContext(ModalContext)
+  const { closeModal } = useContext(ModalContext)
 
   const resetStreak = async () => {
     const scId = user?.streakCounts.find((sc) => sc.name === streakCountName)?.id
@@ -25,18 +25,14 @@ export default function ResetStreak({ streakCountName }: { streakCountName: stri
     closeModal('reset-streak')
   }
 
-  if (isModalOpen('reset-streak')) {
-    return (
-      <Modal
-        modalId="reset-streak"
-        title="Do you want to reset your streak?"
-        inputs={{
-          submit: { value: 'Yes', event: resetStreak },
-          refuse: { value: 'No' },
-        }}
-      />
-    )
-  } else {
-    return <></>
-  }
+  return (
+    <Modal
+      modalId="reset-streak"
+      title="Do you want to reset your streak?"
+      inputs={{
+        submit: { value: 'Yes', event: resetStreak },
+        refuse: { value: 'No' },
+      }}
+    />
+  )
 }

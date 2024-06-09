@@ -9,7 +9,7 @@ import { useContext, useRef, useState } from 'react'
 
 export default function NewStreak() {
   const { user, setUser } = useContext(AuthContext)
-  const { isModalOpen, closeModal } = useContext(ModalContext)
+  const { closeModal } = useContext(ModalContext)
   const inputRef = useRef<HTMLInputElement>(null)
   const [inputPlaceholder, setInputPlaceholder] = useState<string>('name *')
   const router = useRouter()
@@ -33,31 +33,27 @@ export default function NewStreak() {
     }
   }
 
-  if (isModalOpen('new-streak')) {
-    return (
-      <Modal
-        modalId="new-streak"
-        title="Create streak count"
-        inputs={{
-          submit: { value: 'Create', color: 'orange', event: createStreak },
-          refuse: {
-            value: "Don't Create",
-            color: 'red',
-            event: () => {
-              setInputPlaceholder('name *')
-            },
+  return (
+    <Modal
+      modalId="new-streak"
+      title="Create streak count"
+      inputs={{
+        submit: { value: 'Create', color: 'orange', event: createStreak },
+        refuse: {
+          value: "Don't Create",
+          color: 'red',
+          event: () => {
+            setInputPlaceholder('name *')
           },
-        }}
-      >
-        <input
-          className="text-input-form"
-          type="text"
-          placeholder={inputPlaceholder}
-          ref={inputRef}
-        />
-      </Modal>
-    )
-  } else {
-    return <></>
-  }
+        },
+      }}
+    >
+      <input
+        className="text-input-form"
+        type="text"
+        placeholder={inputPlaceholder}
+        ref={inputRef}
+      />
+    </Modal>
+  )
 }
